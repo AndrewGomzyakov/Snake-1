@@ -88,17 +88,39 @@ public class GameState {
         tickObjs();
         tickFactorys();
         cloneSnake();
-        for (int i =0 ; i< snakeClone.size(); i++) {
+        for (int i = 0 ; i< snakeClone.size(); i++) {
         	Point tmp = collise(snakeClone.get(i)); 
-        	snakeClone.get(i).makeStep();
+        	boolean flag = false;
+        	if (!(maze[tmp.y][tmp.x] == '+' || (maze[tmp.y][tmp.x] == '.' && snakeClone.get(i).makeStep())))
+        		die(snakeClone.get(i));
+        	else
+	        	for (int j = 0 ;j < snakeClone.size(); j++) {
+	        		if (snakeClone.get(j).getBody().contains(tmp) && i != j) {
+	        			die(snakeClone.get(i));
+	        			//die(snakeClone.get(j));
+	        			flag = true;
+	        			break;
+	        		}
+        	}
+        	if (this.snake.getBody().contains(tmp)) {
+        		die(snakeClone.get(i));
+        		die(this.snake);
+        		flag = true;
+        	}
+        	if (flag) {
+        		break;
+        	}
+        	
+        		
         }
         if (!snake.isMoving())
             return true;
+        
         Point next = collise(snake);
         if (maze[next.y][next.x] == '+' || (maze[next.y][next.x] == '.' && snake.makeStep()))
             return true;
         else
-            return die();
+            return die(snake);
     }
 
     private Point collise(Snake snake) {
@@ -111,7 +133,7 @@ public class GameState {
             nextTmp = (Point) snake.getNext().clone();
             if (col.interact(snake, snake.getNext())) { //TODO make interact better
                 col=null;
-                die();
+                die(snake);
             } else {
                 setObjs(col.getFact().utilize(col));//TODO Make it better
                 snake.setNext(getBoundedCord(snake, snake.getNext()));
@@ -133,8 +155,15 @@ public class GameState {
             obj.tick();
     }
 
-    public boolean die() {
-        isAlive = false;
+    public boolean die(Snake snake) {
+    	if (snakeClone.size() == 0)
+    		isAlive = false;
+    	if (snake != this.snake)
+    		snakeClone.remove(snake);
+    	else {
+    		this.snake = snakeClone.get(0);
+    		snakeClone.remove(0);
+    	}
         return false; // cuz datz kool
     }
 

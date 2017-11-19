@@ -10,7 +10,7 @@ public class SnakeCloner {
 	public static ArrayList<Snake> clone(ArrayList<Snake> snakes) {
 		Snake cloned = null;
 		for (int i = 0; i < snakes.size(); i++) {
-			if (snakes.get(i).getBody().size() >= 12) {
+			if (snakes.get(i).getBody().size() >= 6) {
 				cloned = snakes.get(i);
 				snakes.remove(i);
 				break;
@@ -20,10 +20,10 @@ public class SnakeCloner {
 			return snakes;
 		ArrayList<Point> snakePoints1 = new ArrayList<Point>();
 		ArrayList<Point> snakePoints2 = new ArrayList<Point>();
-		for (int i = 5; i >= 0; i--) {
+		for (int i = 2; i >= 0; i--) {
 			snakePoints1.add(cloned.getBody().get(i));
 		}
-		for (int i = 7; i < cloned.getBody().size(); i++) {
+		for (int i = 4; i < cloned.getBody().size(); i++) {
 			snakePoints2.add(cloned.getBody().get(i));
 		}
 		Snake snake1 = new Snake(snakePoints1.toArray(new Point[snakePoints1.size()]), 10 - cloned.getDir().getDirN());
