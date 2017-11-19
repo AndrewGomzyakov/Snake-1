@@ -122,9 +122,9 @@ public class GUI {
 							drawSprite(e, hedgD, j*sqRez, i*sqRez, sqRez);
 							break;
 						case('@'):
-							if (j == gameState.getHead().x && i == gameState.getHead().y)
+							/*if (j == gameState.getHead().x && i == gameState.getHead().y)
 								drawColoredSq(e, j*sqRez, i*sqRez, sqRez - 1, SWT.COLOR_DARK_GREEN);
-							else
+							else TODO*/
 								drawColoredSq(e, j*sqRez, i*sqRez, sqRez - 1, SWT.COLOR_GREEN);
 							break;
 						case('#'):
@@ -151,7 +151,7 @@ public class GUI {
 						}
 					}
 				
-				e.gc.drawText("Длина змейки:  " + gameState.getLenght(), 10, sqRez * (a.length));
+				//e.gc.drawText("Длина змейки:  " + gameState.getLenght(), 10, sqRez * (a.length)); TODO
 				if (flag) {
 					e.gc.setBackground(shell.getDisplay().getSystemColor(SWT.COLOR_DARK_MAGENTA));
 					e.gc.drawText("Game over", 100, 100);
@@ -186,16 +186,16 @@ public class GUI {
 				 	 	display.timerExec(500, gameTick);
 			 	 		break;
 					case(SWT.KEYPAD_4):
-						gameState.turnSnake(4);
+						gameState.turnSnake1(4);
 						break;
 					case(SWT.KEYPAD_6):
-						gameState.turnSnake(6);
+						gameState.turnSnake1(6);
 						break;
 					case(SWT.KEYPAD_2):
-						gameState.turnSnake(2);
+						gameState.turnSnake1(2);
 						break;
 					case(SWT.KEYPAD_8):
-						gameState.turnSnake(8);
+						gameState.turnSnake1(8);
 						break;
 				}
 					
