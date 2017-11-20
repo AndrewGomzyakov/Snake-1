@@ -1,4 +1,5 @@
 package GUI;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
@@ -15,8 +16,6 @@ import org.eclipse.swt.widgets.Shell;
 import SnakeCore.GameState;
 import SnakeCore.Saver;
 import SnakeCore.StateParser;
-//import java.util.Timer;
-//import java.util.TimerTask;
 
 public class GUI {	
 	private static Display display = new Display();
