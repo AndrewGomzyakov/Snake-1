@@ -125,7 +125,10 @@ public class GUI {
 							/*if (j == gameState.getHead().x && i == gameState.getHead().y)
 								drawColoredSq(e, j*sqRez, i*sqRez, sqRez - 1, SWT.COLOR_DARK_GREEN);
 							else TODO*/
-								drawColoredSq(e, j*sqRez, i*sqRez, sqRez - 1, SWT.COLOR_GREEN);
+							drawColoredSq(e, j*sqRez, i*sqRez, sqRez - 1, SWT.COLOR_GREEN);
+							break;
+						case('?'):
+							drawColoredSq(e, j*sqRez, i*sqRez, sqRez - 1, SWT.COLOR_DARK_GREEN);
 							break;
 						case('#'):
 							drawColoredSq(e, j*sqRez, i*sqRez, sqRez - 1, SWT.COLOR_BLACK);
@@ -162,6 +165,42 @@ public class GUI {
 		canvas.addKeyListener(new KeyListener() {
 			public void keyPressed(KeyEvent e) {
 				switch(e.keyCode){
+					case(100)://d
+						gameState.turnSnake2(6);
+						break;
+					case(115)://s
+						gameState.turnSnake2(2);
+						break;
+					case(119)://w
+						gameState.turnSnake2(8);
+						break;
+					case(97)://a
+						gameState.turnSnake2(4);
+						break;
+					case(116)://t
+						gameState.turnSnake3(8);
+						break;
+					case(102)://f
+						gameState.turnSnake3(4);
+						break;
+					case(103)://g
+						gameState.turnSnake3(2);
+						break;
+					case(104)://h
+						gameState.turnSnake3(6);
+						break;
+					case(105)://i
+						gameState.turnSnake4(8);
+						break;
+					case(106)://j
+						gameState.turnSnake4(4);
+						break;
+					case(107)://k
+						gameState.turnSnake4(2);
+						break;
+					case(108)://l
+						gameState.turnSnake4(6);
+						break;
 			 	 	case(SWT.F3):
 			 	 		display.timerExec(-1, gameTick);
 			 	 		FileDialog dlg = new FileDialog(shell, SWT.OPEN);

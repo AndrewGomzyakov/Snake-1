@@ -52,9 +52,11 @@ public class GameState {
     public char[][] getMap() {
         for (int i = 0; i < map.length; i++)
             map[i] = maze[i].clone();
-        for (int i = 0; i < snake.getBody().size(); i++) {
+        for (int i = 0; i < snake.getBody().size() - 1; i++) {
             Point p = snake.getBody().get(i);
             map[p.y][p.x] = '@';
+        Point point = snake.getBody().get(snake.getBody().size() - 1);
+        map[point.y][point.x] = '?';
         }
         for (int i = 0; i < getObjsArr().size(); i++) {
             Point[] ps = getObjsArr().get(i).getLocs();
@@ -65,10 +67,12 @@ public class GameState {
             }
         }
         for (int i = 0; i < snakeClone.size(); i++) {
-        	for (int j = 0; j < snakeClone.get(i).getBody().size(); j++) {
+        	for (int j = 0; j < snakeClone.get(i).getBody().size() - 1; j++) {
         		Point p = snakeClone.get(i).getBody().get(j);
         		 map[p.y][p.x] = '@';
         	}
+        	Point point = snakeClone.get(i).getBody().get(snakeClone.get(i).getBody().size() - 1);
+            map[point.y][point.x] = '?';
         }
         return map;
     }
@@ -77,9 +81,13 @@ public class GameState {
     public void cloneSnake() {
     	snakeClone.add(snake);
     	snakeClone = SnakeCloner.clone(snakeClone);
-    	int last  = snakeClone.size() - 1;
-    	snake = snakeClone.get(last);
-    	snakeClone.remove(last);
+    	for (int i = 0; i < snakeClone.size(); i++) {
+    		if (snakeClone.get(i).getHead() == this.snake.getHead()) {
+    			this.snake = snakeClone.get(i);
+    			snakeClone.remove(this.snake);
+    			break;
+    		}
+    	}
     }
     
     public boolean makeTick() {
@@ -156,14 +164,10 @@ public class GameState {
     }
 
     public boolean die(Snake snake) {
-    	if (snakeClone.size() == 0)
+    	if (snake == this.snake)
     		isAlive = false;
-    	if (snake != this.snake)
+    	if (snakeClone.contains(snake))
     		snakeClone.remove(snake);
-    	else {
-    		this.snake = snakeClone.get(0);
-    		snakeClone.remove(0);
-    	}
         return false; // cuz datz kool
     }
 
@@ -192,7 +196,25 @@ public class GameState {
     public boolean turnSnake1(int dir) {
         return snake.turn(new Direction(dir));
     }
-
+    
+    public boolean turnSnake2(int dir) {
+    	if (snakeClone.size() >= 1)
+    		return snakeClone.get(0).turn(new Direction(dir));
+    	return false;
+    }
+    
+    public boolean turnSnake3(int dir) {
+    	if (snakeClone.size() >= 2)
+    		return snakeClone.get(1).turn(new Direction(dir));
+    	return false;
+    }
+    
+    public boolean turnSnake4(int dir) {
+    	if (snakeClone.size() >= 3)
+    		return snakeClone.get(2).turn(new Direction(dir));
+    	return false;
+    }
+    
     public boolean turnSnake(Snake snake, Point dir) {
         return snake.turn(new Direction(dir));
     }
