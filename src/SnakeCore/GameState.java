@@ -10,6 +10,7 @@ import java.util.Random;
 
 public class GameState {
     private Snake snake;
+    private ArrayList<Snake> snakeClone = new ArrayList<Snake>();
     private char[][] maze;
     private char[][] map;
     private Random rnd;
@@ -18,6 +19,7 @@ public class GameState {
     private int height;
     private int width;
 
+   
     public static HashMap<String, IObjFactory> Dic = new HashMap<String, IObjFactory>();
     static {
         Dic.put("Food", new FoodFactory());
@@ -45,16 +47,17 @@ public class GameState {
             setObjs(Dic.get(tup.x).configure(this, tup.y));
         }
     }
-
-
+    
+    
     public char[][] getMap() {
         for (int i = 0; i < map.length; i++)
             map[i] = maze[i].clone();
-        for (int i = 0; i < snake.getBody().size(); i++) {
+        for (int i = 0; i < snake.getBody().size() - 1; i++) {
             Point p = snake.getBody().get(i);
             map[p.y][p.x] = '@';
+        Point point = snake.getBody().get(snake.getBody().size() - 1);
+        map[point.y][point.x] = '?';
         }
-
         for (int i = 0; i < getObjsArr().size(); i++) {
             Point[] ps = getObjsArr().get(i).getLocs();
             char ico = getObjsArr().get(i).getIcon();
@@ -63,39 +66,84 @@ public class GameState {
                 map[p.y][p.x] = ico;
             }
         }
+        for (int i = 0; i < snakeClone.size(); i++) {
+        	for (int j = 0; j < snakeClone.get(i).getBody().size() - 1; j++) {
+        		Point p = snakeClone.get(i).getBody().get(j);
+        		 map[p.y][p.x] = '@';
+        	}
+        	Point point = snakeClone.get(i).getBody().get(snakeClone.get(i).getBody().size() - 1);
+            map[point.y][point.x] = '?';
+        }
         return map;
     }
 
-
+    
+    public void cloneSnake() {
+    	snakeClone.add(snake);
+    	snakeClone = SnakeCloner.clone(snakeClone);
+    	for (int i = 0; i < snakeClone.size(); i++) {
+    		if (snakeClone.get(i).getHead() == this.snake.getHead()) {
+    			this.snake = snakeClone.get(i);
+    			snakeClone.remove(this.snake);
+    			break;
+    		}
+    	}
+    }
+    
     public boolean makeTick() {
         if (!isAlive)
             return false;
         tickObjs();
         tickFactorys();
-
+        cloneSnake();
+        for (int i = 0 ; i< snakeClone.size(); i++) {
+        	Point tmp = collise(snakeClone.get(i)); 
+        	boolean flag = false;
+        	if (!(maze[tmp.y][tmp.x] == '+' || (maze[tmp.y][tmp.x] == '.' && snakeClone.get(i).makeStep())))
+        		die(snakeClone.get(i));
+        	else
+	        	for (int j = 0 ;j < snakeClone.size(); j++) {
+	        		if (snakeClone.get(j).getBody().contains(tmp) && i != j) {
+	        			die(snakeClone.get(i));
+	        			//die(snakeClone.get(j));
+	        			flag = true;
+	        			break;
+	        		}
+        	}
+        	if (this.snake.getBody().contains(tmp)) {
+        		die(snakeClone.get(i));
+        		flag = true;
+        	}
+        	if (flag) {
+        		break;
+        	}
+        	
+        		
+        }
         if (!snake.isMoving())
             return true;
-        Point next = collise();
+        
+        Point next = collise(snake);
         if (maze[next.y][next.x] == '+' || (maze[next.y][next.x] == '.' && snake.makeStep()))
             return true;
         else
-            return die();
+            return die(snake);
     }
 
-    private Point collise() {
+    private Point collise(Snake snake) {
         IObject col = objsCollision(snake.getNext());
         for (Point nextTmp = null; nextTmp==null || (nextTmp.x != snake.getNext().x && nextTmp.y != snake.getNext().y);) {
             if (col == null) {
-                snake.setNext(getBoundedCord(snake.getNext()));
+                snake.setNext(getBoundedCord(snake, snake.getNext()));
                 return snake.getNext();
             }
             nextTmp = (Point) snake.getNext().clone();
             if (col.interact(snake, snake.getNext())) { //TODO make interact better
                 col=null;
-                die();
+                die(snake);
             } else {
                 setObjs(col.getFact().utilize(col));//TODO Make it better
-                snake.setNext(getBoundedCord(snake.getNext()));
+                snake.setNext(getBoundedCord(snake, snake.getNext()));
             }
             col = objsCollision(snake.getNext());
         }
@@ -114,17 +162,24 @@ public class GameState {
             obj.tick();
     }
 
-    public boolean die() {
-        isAlive = false;
+    public boolean die(Snake snake) {
+    	if (snake == this.snake)
+    		isAlive = false;
+    	if (snakeClone.contains(snake))
+    		snakeClone.remove(snake);
         return false; // cuz datz kool
     }
 
-    protected Point getBoundedCord(Point p) {
+    protected Point getBoundedCord(Snake snake, Point p) {
         if (!(p.x >= 0 && p.x < width && p.y >= 0 && p.y < height)) {
             p = new Point((p.x + width) % width, (p.y + height) % height);
             snake.setNext(p);
         }
         return p;
+    }
+    
+    public Snake getSnake() {
+    	return this.snake;
     }
 
     private IObject objsCollision(Point p) {
@@ -135,16 +190,35 @@ public class GameState {
         return null;
     }
 
-    public void feedSnake(int val) {
+    public void feedSnake(Snake snake, int val) {
         snake.grow(val); //TODO Закрыть!
     }
+    
+    
 
-
-    public boolean turnSnake(int dir) {
+    public boolean turnSnake1(int dir) {
         return snake.turn(new Direction(dir));
     }
-
-    public boolean turnSnake(Point dir) {
+    
+    public boolean turnSnake2(int dir) {
+    	if (snakeClone.size() >= 1)
+    		return snakeClone.get(0).turn(new Direction(dir));
+    	return false;
+    }
+    
+    public boolean turnSnake3(int dir) {
+    	if (snakeClone.size() >= 2)
+    		return snakeClone.get(1).turn(new Direction(dir));
+    	return false;
+    }
+    
+    public boolean turnSnake4(int dir) {
+    	if (snakeClone.size() >= 3)
+    		return snakeClone.get(2).turn(new Direction(dir));
+    	return false;
+    }
+    
+    public boolean turnSnake(Snake snake, Point dir) {
         return snake.turn(new Direction(dir));
     }
 
@@ -156,6 +230,10 @@ public class GameState {
         for (Point part : snake.getBody())
             if (part.x == p.x && part.y == p.y)
                 return '@';
+        for (int i = 0; i < snakeClone.size(); i++)
+        	for (Point part : snakeClone.get(i).getBody())
+        		 if (part.x == p.x && part.y == p.y)
+                     return '@';
         IObject obj = objsCollision(p);
         if (obj != null)
             return obj.getIcon();
@@ -169,19 +247,19 @@ public class GameState {
         return loc;
     }
 
-    protected void teleportHead(Point newHead) {
+    protected void teleportHead(Snake snake, Point newHead) {
         snake.setNext(newHead);
     }
 
-    public Point getHead() {
+    public Point getHead(Snake snake) {
         return snake.getHead();
     }
 
-    public Direction getSnakeDir() {
+    public Direction getSnakeDir(Snake snake) {
         return snake.getDir();
     }
 
-    public int getLenght() {
+    public int getLenght(Snake snake) {
         return snake.getBody().size();
     }
 
@@ -193,7 +271,7 @@ public class GameState {
         return new Point(width, height);
     }
 
-    public Snake getSnake() {
+    public Snake getSnake(Snake snake) {
         return snake;
     }
 

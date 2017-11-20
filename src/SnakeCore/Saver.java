@@ -100,6 +100,9 @@ public class Saver {
                     case('@'):
                         rezultStr.append('.');
                         break;
+                    case('?'):
+                    	rezultStr.append('.');
+                    	break;
                 }
             }
             rezultStr.append('\n');

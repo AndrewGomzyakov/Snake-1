@@ -35,7 +35,7 @@ public class HedgFactory extends IObjFactory {
             return null;
         }
         Point loc = game.getRndFreePoint();
-        while (game.getCell(game.getBoundedCord( // TODO what
+        while (game.getCell(game.getBoundedCord(game.getSnake(), // TODO what
                 new Point(loc.x + hedg.getDir().getDir().x,
                           loc.y + hedg.getDir().getDir().y))) != '.') {
             loc = game.getRndFreePoint();
