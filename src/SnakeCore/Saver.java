@@ -113,7 +113,7 @@ public class Saver {
             
         }
         rezultStr.append('\n');
-        rezultStr.append(Integer.toString(game.getSnakeDir().getDirN()) + '\n');
+        rezultStr.append(Integer.toString(game.getSnakeDir(game.getSnake()).getDirN()) + '\n');
         if (pil.size() != 0) 
         {
             rezultStr.append("Pillow -1 ");
