@@ -178,6 +178,10 @@ public class GameState {
         }
         return p;
     }
+    
+    public Snake getSnake() {
+    	return this.snake;
+    }
 
     private IObject objsCollision(Point p) {
         for (IObject obj : getObjsArr())
