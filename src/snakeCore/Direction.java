@@ -20,18 +20,18 @@ public class Direction{
 
 	
 	private void setPointDir(Point p) {
-		if(p.equals(new Point(1,0))) dir = Dir.Right;
-		else if(p.equals(new Point(-1,0))) dir = Dir.Left;
-		else if(p.equals(new Point(0,1))) dir = Dir.Down;
+		if(p.equals(new Point(0,1))) dir = Dir.Down;
 		else if(p.equals(new Point(0,-1))) dir = Dir.Up;
+		else if(p.equals(new Point(1,0))) dir = Dir.Right;
+		else if(p.equals(new Point(-1,0))) dir = Dir.Left;
 		dir = Dir.Right;//Need exception
 	}
 	
 	public Point getPointDir(){
-		if(dir == Dir.Right) return new Point(1,0);
-		if(dir == Dir.Left) return new Point(-1,0);
 		if(dir == Dir.Down) return new Point(0,1);
 		if(dir == Dir.Up) return new Point(0,-1);
+		if(dir == Dir.Right) return new Point(1,0);
+		if(dir == Dir.Left) return new Point(-1,0);
 		return new Point(0,1/0);//Need exception
 	}
 
