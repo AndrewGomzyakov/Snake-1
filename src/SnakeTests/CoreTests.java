@@ -22,7 +22,7 @@ public class CoreTests extends Assert {
     @Test
     public void test1D2Moving() throws Exception {
         GameState game = StateParser.makeGame("tests\\T1.txt");
-        game.turnSnake(4);
+        game.turnSnake1(4);
         if (!game.makeTick() && game.getMap()[2][0] == '@') {
             throw new Exception();
         } ;
@@ -62,7 +62,7 @@ public class CoreTests extends Assert {
         IObject[] t = (new TeleportFactory()).create(game,
                 new Point[] {new Point(0, 1), new Point(1, 0)});
         game.setObjs(t);
-        if (!(game.makeTick() && game.getHead().x == 1 && game.getHead().y == 1)) {
+        if (!(game.makeTick() && game.getHead(game.getSnake()).x == 1 && game.getHead(game.getSnake()).y == 1)) {
             throw new Exception();
         } ;
     }
@@ -73,8 +73,8 @@ public class CoreTests extends Assert {
         IObject[] t = (new TeleportFactory()).create(game,
                 new Point[] {new Point(0, 1), new Point(1, 0)});
         game.setObjs(t);
-        game.turnSnake(4);
-        if (!(game.makeTick() && game.getHead().x == 1 && game.getHead().y == 1)) {
+        game.turnSnake1(4);
+        if (!(game.makeTick() && game.getHead(game.getSnake()).x == 1 && game.getHead(game.getSnake()).y == 1)) {
             throw new Exception();
         } ;
     }
@@ -111,7 +111,7 @@ public class CoreTests extends Assert {
         if (!(game.makeTick() && game.getMap()[0][0] == '@')) {
             throw new Exception();
         } ;
-        game.turnSnake(6);
+        game.turnSnake1(6);
         if (!(game.makeTick() && game.getMap()[0][1] == '@')) {
             throw new Exception();
         } ;
