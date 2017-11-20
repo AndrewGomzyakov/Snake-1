@@ -112,7 +112,6 @@ public class GameState {
         	}
         	if (this.snake.getBody().contains(tmp)) {
         		die(snakeClone.get(i));
-        		die(this.snake);
         		flag = true;
         	}
         	if (flag) {
