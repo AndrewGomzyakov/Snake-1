@@ -1,4 +1,4 @@
-package SnakeCore;
+package snakeCore;
 
 import java.awt.Point;
 
@@ -36,8 +36,8 @@ public class HedgFactory extends IObjFactory {
         }
         Point loc = game.getRndFreePoint();
         while (game.getCell(game.getBoundedCord(game.getSnake(), // TODO what
-                new Point(loc.x + hedg.getDir().getDir().x,
-                          loc.y + hedg.getDir().getDir().y))) != '.') {
+                new Point(loc.x + hedg.getDir().getPointDir().x,
+                          loc.y + hedg.getDir().getPointDir().y))) != '.') {
             loc = game.getRndFreePoint();
         }
         return new Hedg[] {new Hedg(this, loc)};

@@ -1,4 +1,4 @@
-package SnakeCore;
+package snakeCore;
 import java.awt.Point;
 import java.io.*;
 import java.util.ArrayList;
@@ -116,7 +116,7 @@ public class Saver {
             
         }
         rezultStr.append('\n');
-        rezultStr.append(Integer.toString(game.getSnakeDir(game.getSnake()).getDirN()) + '\n');
+        rezultStr.append(Integer.toString(game.getSnakeDir(game.getSnake()).getIntDir()) + '\n');
         if (pil.size() != 0) 
         {
             rezultStr.append("Pillow -1 ");

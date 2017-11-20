@@ -1,4 +1,4 @@
-package SnakeCore;
+package snakeCore;
 
 import java.awt.Point;
 import java.util.Random;
@@ -25,7 +25,7 @@ public final class Hedg extends IObject {
         this.fact = fact;
         loc = p;
         dir = new Direction(d);
-        ico = makeIco(dir.getDirN());
+        ico = makeIco(dir.getIntDir());
     }
 
     public Hedg(HedgFactory fact) {
@@ -38,7 +38,7 @@ public final class Hedg extends IObject {
     private void commonInit() {
         rnd = new Random();
         dir = new Direction((rnd.nextInt(4) + 1) * 2);
-        ico = makeIco(dir.getDirN());
+        ico = makeIco(dir.getIntDir());
     }
 
     private char makeIco(int dir) {

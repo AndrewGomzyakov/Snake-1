@@ -1,14 +1,16 @@
-package SnakeTests;
+package snakeTests;
 
 import java.awt.Point;
 import org.junit.*;
-import SnakeCore.FoodFactory;
-import SnakeCore.GameState;
-import SnakeCore.HedgFactory;
-import SnakeCore.IObject;
-import SnakeCore.PillowFactory;
-import SnakeCore.StateParser;
-import SnakeCore.TeleportFactory;
+
+import snakeCore.Dir;
+import snakeCore.FoodFactory;
+import snakeCore.GameState;
+import snakeCore.HedgFactory;
+import snakeCore.IObject;
+import snakeCore.PillowFactory;
+import snakeCore.StateParser;
+import snakeCore.TeleportFactory;
 
 public class CoreTests extends Assert {
     @Test
@@ -22,7 +24,7 @@ public class CoreTests extends Assert {
     @Test
     public void test1D2Moving() throws Exception {
         GameState game = StateParser.makeGame("tests\\T1.txt");
-        game.turnSnake1(4);
+        game.turnSnake1(Dir.Left);
         if (!game.makeTick() && game.getMap()[2][0] == '@') {
             throw new Exception();
         } ;
@@ -73,7 +75,7 @@ public class CoreTests extends Assert {
         IObject[] t = (new TeleportFactory()).create(game,
                 new Point[] {new Point(0, 1), new Point(1, 0)});
         game.setObjs(t);
-        game.turnSnake1(4);
+        game.turnSnake1(Dir.Left);
         if (!(game.makeTick() && game.getHead(game.getSnake()).x == 1 && game.getHead(game.getSnake()).y == 1)) {
             throw new Exception();
         } ;
@@ -111,7 +113,7 @@ public class CoreTests extends Assert {
         if (!(game.makeTick() && game.getMap()[0][0] == '@')) {
             throw new Exception();
         } ;
-        game.turnSnake1(6);
+        game.turnSnake1(Dir.Right);
         if (!(game.makeTick() && game.getMap()[0][1] == '@')) {
             throw new Exception();
         } ;

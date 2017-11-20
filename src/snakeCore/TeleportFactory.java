@@ -1,9 +1,9 @@
-package SnakeCore;
+package snakeCore;
 
 import java.awt.Point;
 
 public class TeleportFactory extends IObjFactory {
-    //TODO count teleports
+
     @Override
     public Teleport[] create(GameState game, Point[] ps) {
         Teleport[] tmp=new Teleport[ps.length/2];

@@ -1,4 +1,4 @@
-package SnakeCore;
+package snakeCore;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class GameState {
         rnd = new Random();
         height = maze.length;
         width = maze[0].length;// bad
-        snake = new Snake(snakePos, snakeDir.getDirN());
+        snake = new Snake(snakePos, snakeDir.getIntDir());
         for (Tuple<String, Integer[]> tup : objsCreators) {
             setObjs(Dic.get(tup.x).configure(this, tup.y));
         }
@@ -196,23 +196,23 @@ public class GameState {
     
     
 
-    public boolean turnSnake1(int dir) {
+    public boolean turnSnake1(Dir dir) {
         return snake.turn(new Direction(dir));
     }
     
-    public boolean turnSnake2(int dir) {
+    public boolean turnSnake2(Dir dir) {
     	if (snakeClone.size() >= 1)
     		return snakeClone.get(0).turn(new Direction(dir));
     	return false;
     }
     
-    public boolean turnSnake3(int dir) {
+    public boolean turnSnake3(Dir dir) {
     	if (snakeClone.size() >= 2)
     		return snakeClone.get(1).turn(new Direction(dir));
     	return false;
     }
     
-    public boolean turnSnake4(int dir) {
+    public boolean turnSnake4(Dir dir) {
     	if (snakeClone.size() >= 3)
     		return snakeClone.get(2).turn(new Direction(dir));
     	return false;

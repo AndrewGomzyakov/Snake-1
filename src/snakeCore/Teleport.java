@@ -1,4 +1,4 @@
-package SnakeCore;
+package snakeCore;
 
 import java.awt.Point;
 
@@ -41,7 +41,7 @@ public class Teleport extends IObject {
             targ = enterB;
         else // (p.x==enterB.x && p.y==enterB.y)
             targ = enterA;
-        Point dir = snake.getDir().getDir();
+        Point dir = snake.getDir().getPointDir();
         snake.setNext(new Point(targ.x + dir.x, targ.y + dir.y));
         return false;
     }

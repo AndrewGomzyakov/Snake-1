@@ -5,4 +5,4 @@
  * @author Avel
  *
  */
-package GUI;
+package snakeTests;

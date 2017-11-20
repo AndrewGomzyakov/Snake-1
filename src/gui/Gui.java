@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
@@ -12,13 +12,13 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 
-import SnakeCore.GameState;
-import SnakeCore.Saver;
-import SnakeCore.StateParser;
-//import java.util.Timer;
-//import java.util.TimerTask;
+import snakeCore.Dir;
+import snakeCore.GameState;
+import snakeCore.Saver;
+import snakeCore.StateParser;
 
-public class GUI {	
+
+public class Gui {	
 	private static Display display = new Display();
 	private static Shell shell = new Shell(display);
 	private static GameState gameState;
@@ -157,7 +157,7 @@ public class GUI {
 				//e.gc.drawText("Длина змейки:  " + gameState.getLenght(), 10, sqRez * (a.length)); TODO
 				if (flag) {
 					e.gc.setBackground(shell.getDisplay().getSystemColor(SWT.COLOR_DARK_MAGENTA));
-					e.gc.drawText("Game over", 100, 100);
+					e.gc.drawText("Game over", 200, 200);
 				}
 			}
 		});
@@ -166,40 +166,40 @@ public class GUI {
 			public void keyPressed(KeyEvent e) {
 				switch(e.keyCode){
 					case(100)://d
-						gameState.turnSnake2(6);
+						gameState.turnSnake2(Dir.Right);
 						break;
 					case(115)://s
-						gameState.turnSnake2(2);
+						gameState.turnSnake2(Dir.Down);
 						break;
 					case(119)://w
-						gameState.turnSnake2(8);
+						gameState.turnSnake2(Dir.Up);
 						break;
 					case(97)://a
-						gameState.turnSnake2(4);
+						gameState.turnSnake2(Dir.Left);
 						break;
 					case(116)://t
-						gameState.turnSnake3(8);
+						gameState.turnSnake3(Dir.Up);
 						break;
 					case(102)://f
-						gameState.turnSnake3(4);
+						gameState.turnSnake3(Dir.Left);
 						break;
 					case(103)://g
-						gameState.turnSnake3(2);
+						gameState.turnSnake3(Dir.Down);
 						break;
 					case(104)://h
-						gameState.turnSnake3(6);
+						gameState.turnSnake3(Dir.Right);
 						break;
 					case(105)://i
-						gameState.turnSnake4(8);
+						gameState.turnSnake4(Dir.Up);
 						break;
 					case(106)://j
-						gameState.turnSnake4(4);
+						gameState.turnSnake4(Dir.Left);
 						break;
 					case(107)://k
-						gameState.turnSnake4(2);
+						gameState.turnSnake4(Dir.Down);
 						break;
 					case(108)://l
-						gameState.turnSnake4(6);
+						gameState.turnSnake4(Dir.Right);
 						break;
 			 	 	case(SWT.F3):
 			 	 		display.timerExec(-1, gameTick);
@@ -224,17 +224,17 @@ public class GUI {
 				 	 	Saver.save(fname2, gameState);
 				 	 	display.timerExec(500, gameTick);
 			 	 		break;
-					case(SWT.KEYPAD_4):
-						gameState.turnSnake1(4);
+					case(SWT.ARROW_LEFT):
+						gameState.turnSnake1(Dir.Left);
 						break;
-					case(SWT.KEYPAD_6):
-						gameState.turnSnake1(6);
+					case(SWT.ARROW_RIGHT):
+						gameState.turnSnake1(Dir.Right);
 						break;
-					case(SWT.KEYPAD_2):
-						gameState.turnSnake1(2);
+					case(SWT.ARROW_DOWN):
+						gameState.turnSnake1(Dir.Down);
 						break;
-					case(SWT.KEYPAD_8):
-						gameState.turnSnake1(8);
+					case(SWT.ARROW_UP):
+						gameState.turnSnake1(Dir.Up);
 						break;
 				}
 					

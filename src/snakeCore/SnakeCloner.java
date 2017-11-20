@@ -1,8 +1,7 @@
-package SnakeCore;
+package snakeCore;
 
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.List;
 
 
 
@@ -26,8 +25,8 @@ public class SnakeCloner {
 		for (int i = 4; i < cloned.getBody().size(); i++) {
 			snakePoints2.add(cloned.getBody().get(i));
 		}
-		Snake snake1 = new Snake(snakePoints1.toArray(new Point[snakePoints1.size()]), 10 - cloned.getDir().getDirN());
-		Snake snake2 = new Snake(snakePoints2.toArray(new Point[snakePoints2.size()]), cloned.getDir().getDirN());
+		Snake snake1 = new Snake(snakePoints1.toArray(new Point[snakePoints1.size()]), 10 - cloned.getDir().getIntDir());
+		Snake snake2 = new Snake(snakePoints2.toArray(new Point[snakePoints2.size()]), cloned.getDir().getIntDir());
 		if (snakes.size() < 3)
 			snakes.add(snake1);
 		snakes.add(snake2);
