@@ -19,12 +19,12 @@ public class Direction{
 	}
 
 	
-	private Dir setPointDir(Point p) {
-		if(p.equals(new Point(1,0))) return Dir.Right;
-		else if(p.equals(new Point(-1,0))) return Dir.Left;
-		else if(p.equals(new Point(0,1))) return Dir.Down;
-		else if(p.equals(new Point(0,-1))) return Dir.Up;
-		return Dir.Right;//Need exception
+	private void setPointDir(Point p) {
+		if(p.equals(new Point(1,0))) dir = Dir.Right;
+		else if(p.equals(new Point(-1,0))) dir = Dir.Left;
+		else if(p.equals(new Point(0,1))) dir = Dir.Down;
+		else if(p.equals(new Point(0,-1))) dir = Dir.Up;
+		dir = Dir.Right;//Need exception
 	}
 	
 	public Point getPointDir(){
@@ -36,17 +36,21 @@ public class Direction{
 	}
 
     public boolean IsOpposit(Direction newDir){
-        return (this.getIntDir()==8 && newDir.getIntDir()==2) ||
-                (this.getIntDir()==2 && newDir.getIntDir()==8) ||
-                (this.getIntDir()==4 && newDir.getIntDir()==6) ||
-                (this.getIntDir()==6 && newDir.getIntDir()==4);
+        return (this.dir == Dir.Up && newDir.dir == Dir.Down) ||
+                (this.dir == Dir.Down && newDir.dir == Dir.Up) ||
+                (this.dir == Dir.Left && newDir.dir == Dir.Right) ||
+                (this.dir == Dir.Right && newDir.dir == Dir.Left);
     }
 
 	public int getIntDir() {
-		if(dir == Dir.Right) return 6;
-		if(dir == Dir.Left) return 4;
-		if(dir == Dir.Down) return 2;
-		if(dir == Dir.Up) return 8;
+		if(dir == Dir.Right)
+			return 6;
+		if(dir == Dir.Left) 
+			return 4;
+		if(dir == Dir.Down) 
+			return 2;
+		if(dir == Dir.Up) 
+			return 8;
 		int exept = 1/0; 
 		return -1;
 	}

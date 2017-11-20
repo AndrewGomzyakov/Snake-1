@@ -22,7 +22,7 @@ public class SnakeCloner {
 		for (int i = 2; i >= 0; i--) {
 			snakePoints1.add(cloned.getBody().get(i));
 		}
-		for (int i = 4; i < cloned.getBody().size(); i++) {
+		for (int i = 3; i < cloned.getBody().size(); i++) {
 			snakePoints2.add(cloned.getBody().get(i));
 		}
 		Snake snake1 = new Snake(snakePoints1.toArray(new Point[snakePoints1.size()]), 10 - cloned.getDir().getIntDir());

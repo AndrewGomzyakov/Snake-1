@@ -42,8 +42,7 @@ public class CoreTests extends Assert {
     @Test
     public void test3Tesseract() throws Exception {
         GameState game = StateParser.makeGame("tests\\T3.txt");
-
-        if (!(game.makeTick() && game.getMap()[2][0] == '@')) {
+        if (!(game.makeTick() && game.getHead(game.getSnake()).x == 0 && game.getHead(game.getSnake()).y == 2)) {
             throw new Exception();
         } ;
     }
@@ -75,7 +74,7 @@ public class CoreTests extends Assert {
         IObject[] t = (new TeleportFactory()).create(game,
                 new Point[] {new Point(0, 1), new Point(1, 0)});
         game.setObjs(t);
-        game.turnSnake1(Dir.Left);
+        game.turnSnake1(Dir.Right);
         if (!(game.makeTick() && game.getHead(game.getSnake()).x == 1 && game.getHead(game.getSnake()).y == 1)) {
             throw new Exception();
         } ;
@@ -89,7 +88,7 @@ public class CoreTests extends Assert {
             IObject[] t = (new HedgFactory()).create(game,
                     new Point[] {new Point(0, 1), new Point(1, 0)});
             game.setObjs(t);
-            if (!(t[0].getIcon() == 'W' == (game.makeTick() && game.getMap()[0][0] == '@'))) {
+            if (!(t[0].getIcon() == 'W' && (game.makeTick() && game.getHead(game.getSnake()).x == 0 && game.getHead(game.getSnake()).y == 0))) {
                 throw new Exception();
             } ;
         }
@@ -101,7 +100,7 @@ public class CoreTests extends Assert {
         IObject[] t = (new PillowFactory()).create(game, new Point[] {new Point(0, 1)});
         game.setObjs(t);
         game.makeTick();
-        if (!(game.makeTick() && game.getMap()[0][0] == '@')) {
+        if (!(game.makeTick() && game.getHead(game.getSnake()).x == 0 && game.getHead(game.getSnake()).y == 0)) {
             throw new Exception();
         } ;
     }
@@ -110,11 +109,11 @@ public class CoreTests extends Assert {
     public void test8SoftWall() throws Exception {
         GameState game = StateParser.makeGame("tests\\T8.txt");
         game.makeTick();
-        if (!(game.makeTick() && game.getMap()[0][0] == '@')) {
+        if (!(game.makeTick() && game.getHead(game.getSnake()).x == 0 && game.getHead(game.getSnake()).y == 0)) {
             throw new Exception();
         } ;
         game.turnSnake1(Dir.Right);
-        if (!(game.makeTick() && game.getMap()[0][1] == '@')) {
+        if (!(game.makeTick() && game.getHead(game.getSnake()).x == 1 && game.getHead(game.getSnake()).y == 0)) {
             throw new Exception();
         } ;
     }

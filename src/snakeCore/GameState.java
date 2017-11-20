@@ -55,8 +55,8 @@ public class GameState {
         for (int i = 0; i < snake.getBody().size() - 1; i++) {
             Point p = snake.getBody().get(i);
             map[p.y][p.x] = '@';
-        Point point = snake.getBody().get(snake.getBody().size() - 1);
-        map[point.y][point.x] = '?';
+            Point point = snake.getBody().get(snake.getBody().size() - 1);
+            map[point.y][point.x] = '?';
         }
         for (int i = 0; i < getObjsArr().size(); i++) {
             Point[] ps = getObjsArr().get(i).getLocs();
