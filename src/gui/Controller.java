@@ -7,8 +7,8 @@ import snakeCore.Dir;
 import snakeCore.GameState;
 
 public class Controller {
-	public static void sankeController(GameState gameState, KeyEvent e) {
-		switch(e.keyCode){
+	public static void snakeController(GameState gameState, int e) {
+		switch(e){
 		case(100)://d
 			gameState.turnSnake2(Dir.Right);
 			break;

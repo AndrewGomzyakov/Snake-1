@@ -1,8 +1,16 @@
 package snakeTests;
 
 import java.awt.Point;
+
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.widgets.Canvas;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Shell;
 import org.junit.*;
 
+import gui.Controller;
 import snakeCore.Dir;
 import snakeCore.FoodFactory;
 import snakeCore.GameState;
@@ -80,20 +88,6 @@ public class CoreTests extends Assert {
         } ;
     }
 
-
-    @Test
-    public void test6Hedg() throws Exception {
-        for (int i = 0; i < 10; i++) {
-            GameState game = StateParser.makeGame("tests\\T6.txt");
-            IObject[] t = (new HedgFactory()).create(game,
-                    new Point[] {new Point(0, 1), new Point(1, 0)});
-            game.setObjs(t);
-            if (!(t[0].getIcon() == 'W' && (game.makeTick() && game.getHead(game.getSnake()).x == 0 && game.getHead(game.getSnake()).y == 0))) {
-                throw new Exception();
-            } ;
-        }
-    }
-
     @Test
     public void test7Pillow() throws Exception {
         GameState game = StateParser.makeGame("tests\\T7.txt");
@@ -117,4 +111,31 @@ public class CoreTests extends Assert {
             throw new Exception();
         } ;
     }
+    
+    @Test
+    public void testController() throws Exception{
+    	GameState game = StateParser.makeGame("tests\\T1.txt");
+    	Controller.snakeController(game, SWT.ARROW_RIGHT);
+    	if (game.getSnake().getDir().getIntDir() != 6)
+    		throw new Exception();
+    	  		
+    }
+    
+    @Test
+    public void testController2() throws Exception{
+    	GameState game = StateParser.makeGame("tests\\T1.txt");
+    	Controller.snakeController(game, SWT.ARROW_LEFT);
+    	if (game.getSnake().getDir().getIntDir() != 4)
+    		throw new Exception();
+    	  		
+    }
 }
+
+
+
+
+
+
+
+
+

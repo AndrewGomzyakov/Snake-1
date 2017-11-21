@@ -164,7 +164,7 @@ public class Gui {
 		
 		canvas.addKeyListener(new KeyListener() {
 			public void keyPressed(KeyEvent e) {
-				Controller.sankeController(gameState, e);
+				Controller.snakeController(gameState, e.keyCode);
 				switch(e.keyCode) {
 			 	 	case(SWT.F3):
 			 	 		display.timerExec(-1, gameTick);
