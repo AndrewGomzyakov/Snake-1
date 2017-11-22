@@ -122,9 +122,6 @@ public class Gui {
 							drawSprite(e, hedgD, j*sqRez, i*sqRez, sqRez);
 							break;
 						case('@'):
-							/*if (j == gameState.getHead().x && i == gameState.getHead().y)
-								drawColoredSq(e, j*sqRez, i*sqRez, sqRez - 1, SWT.COLOR_DARK_GREEN);
-							else TODO*/
 							drawColoredSq(e, j*sqRez, i*sqRez, sqRez - 1, SWT.COLOR_GREEN);
 							break;
 						case('?'):
