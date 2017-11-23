@@ -6,9 +6,9 @@ public enum Dir {
 	Left, 
 	Right
 	
-	public static Dir ofInt(int i) {
-		if (i == 2) {
-			return Down;
-		}
-	}
+	//public static Dir ofInt(int i) {
+	//	if (i == 2) {
+	//		return Down;
+	//	}
+	//}
 }

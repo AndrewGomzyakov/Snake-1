@@ -125,12 +125,12 @@ public class CoreTests extends Assert {
     public void testController2() throws Exception{
     	GameState game = StateParser.makeGame("tests\\T1.txt");
     	Controller.snakeController(game, SWT.ARROW_LEFT);
-    	if (Dir.ofInt(game.getSnake().getDir().getIntDir()) != Dir.Left)
+    	if (game.getSnake().getDir().getIntDir() != 4)
     		throw new Exception();
     	  		
     }
 }
-//Андрей, Селектор + двигать без циферок, 2 задача, тесты, избавится от 2468
+//Селектор + двигать без циферок, 2 задача, тесты, избавится от 2468
 
 
 
