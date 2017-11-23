@@ -1,6 +1,9 @@
-package snakeCore;
+package model;
 import java.util.LinkedList;//Queue required
 import java.util.List;
+
+import direction.Direction;
+
 import java.awt.Point;
 
 public class Snake{

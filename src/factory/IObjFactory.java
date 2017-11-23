@@ -1,6 +1,9 @@
-package snakeCore;
+package factory;
 
 import java.awt.Point;
+
+import gameCore.GameState;
+import model.IObject;
 
 public abstract class IObjFactory{
     public abstract IObject[] utilize(IObject obj);

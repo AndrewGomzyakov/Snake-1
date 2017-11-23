@@ -1,6 +1,8 @@
-package snakeCore;
+package model;
 
 import java.awt.Point;
+
+import factory.FoodFactory;
 
 public final class Food extends IObject {
 

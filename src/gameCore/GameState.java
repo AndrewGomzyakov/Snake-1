@@ -1,4 +1,4 @@
-package snakeCore;
+package gameCore;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -7,6 +7,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 // import java.util.Map;
+
+import clone.SnakeCloner;
+import direction.Dir;
+import direction.Direction;
+import factory.FoodFactory;
+import factory.HedgFactory;
+import factory.IObjFactory;
+import factory.PillowFactory;
+import factory.TeleportFactory;
+import model.IObject;
+import model.Snake;
 
 public class GameState {
     private Snake snake;
@@ -168,9 +179,9 @@ public class GameState {
     	if (snakeClone.contains(snake))
     		snakeClone.remove(snake);
         return false; // cuz datz kool
-    }
+    } 
 
-    protected Point getBoundedCord(Snake snake, Point p) {
+    public Point getBoundedCord(Snake snake, Point p) {
         if (!(p.x >= 0 && p.x < width && p.y >= 0 && p.y < height)) {
             p = new Point((p.x + width) % width, (p.y + height) % height);
             snake.setNext(p);
@@ -222,7 +233,7 @@ public class GameState {
         return snake.turn(new Direction(dir));
     }
 
-    protected char getCell(Point p) {
+    public char getCell(Point p) {
         if (maze[p.y][p.x] == '#')
             return '#';
         if (maze[p.y][p.x] == '+')
@@ -240,14 +251,14 @@ public class GameState {
         return '.';
     }
 
-    protected Point getRndFreePoint() {
+    public Point getRndFreePoint() {
         Point loc = new Point(rnd.nextInt(width), rnd.nextInt(height));
         while (getCell(loc) != '.')
             loc = new Point(rnd.nextInt(width), rnd.nextInt(height));
         return loc;
     }
 
-    protected void teleportHead(Snake snake, Point newHead) {
+    public void teleportHead(Snake snake, Point newHead) {
         snake.setNext(newHead);
     }
 

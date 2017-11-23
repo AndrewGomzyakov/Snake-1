@@ -1,4 +1,4 @@
-package snakeCore;
+package direction;
 
 import java.awt.Point;
 
@@ -8,7 +8,7 @@ public class Direction{
 	
 	public Direction(int d) {
 		setIntDir(d);
-	}
+	} 
 	
 	public Direction(Point d) {
 		setPointDir(d); 

@@ -10,15 +10,15 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.junit.*;
 
+import direction.Dir;
+import factory.FoodFactory;
+import factory.HedgFactory;
+import factory.PillowFactory;
+import factory.TeleportFactory;
+import gameCore.GameState;
+import gameCore.StateParser;
 import gui.Controller;
-import snakeCore.Dir;
-import snakeCore.FoodFactory;
-import snakeCore.GameState;
-import snakeCore.HedgFactory;
-import snakeCore.IObject;
-import snakeCore.PillowFactory;
-import snakeCore.StateParser;
-import snakeCore.TeleportFactory;
+import model.IObject;
 
 public class CoreTests extends Assert {
     @Test
@@ -121,16 +121,16 @@ public class CoreTests extends Assert {
     	  		
     }
     
-    @Test
+    @Test 
     public void testController2() throws Exception{
     	GameState game = StateParser.makeGame("tests\\T1.txt");
     	Controller.snakeController(game, SWT.ARROW_LEFT);
-    	if (game.getSnake().getDir().getIntDir() != 4)
+    	if (Dir.ofInt(game.getSnake().getDir().getIntDir()) != Dir.Left)
     		throw new Exception();
     	  		
     }
 }
-
+//Андрей, Селектор + двигать без циферок, 2 задача, тесты, избавится от 2468
 
 
 

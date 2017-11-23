@@ -3,8 +3,8 @@ package gui;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 
-import snakeCore.Dir;
-import snakeCore.GameState;
+import direction.Dir;
+import gameCore.GameState;
 
 public class Controller {
 	public static void snakeController(GameState gameState, int e) {

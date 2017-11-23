@@ -1,6 +1,9 @@
-package snakeCore;
+package model;
 
 import java.awt.Point;
+
+import factory.IObjFactory;
+import factory.TeleportFactory;
 
 public class Teleport extends IObject {
 

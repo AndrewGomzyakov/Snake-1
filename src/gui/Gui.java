@@ -12,10 +12,10 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 
-import snakeCore.Dir;
-import snakeCore.GameState;
-import snakeCore.Saver;
-import snakeCore.StateParser;
+import direction.Dir;
+import gameCore.GameState;
+import gameCore.StateParser;
+import save.Saver;
 
 
 public class Gui {	

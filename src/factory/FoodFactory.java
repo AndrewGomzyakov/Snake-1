@@ -1,8 +1,12 @@
-package snakeCore;
+package factory;
 
 import java.awt.Point;
 import java.util.Arrays;
 import java.util.Random;
+
+import gameCore.GameState;
+import model.Food;
+import model.IObject;
 
 public final class FoodFactory extends IObjFactory {
 

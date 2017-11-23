@@ -1,7 +1,9 @@
-package snakeCore;
+package clone;
 
 import java.awt.Point;
 import java.util.ArrayList;
+
+import model.Snake;
 
 
 

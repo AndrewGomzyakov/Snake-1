@@ -1,6 +1,8 @@
-package snakeCore;
+package model;
 
 import java.awt.Point;
+
+import factory.PillowFactory;
 
 public class Pillow extends IObject {
 
@@ -46,7 +48,7 @@ public class Pillow extends IObject {
         return false;
     }
 
-    protected Snake getSnakeOn() {
+    public Snake getSnakeOn() {
         return snake;
     }
 

@@ -1,6 +1,10 @@
-package snakeCore;
+package factory;
 
 import java.awt.Point;
+
+import gameCore.GameState;
+import model.IObject;
+import model.Teleport;
 
 public class TeleportFactory extends IObjFactory {
 

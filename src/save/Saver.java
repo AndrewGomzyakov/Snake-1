@@ -1,10 +1,13 @@
-package snakeCore;
+package save;
 import java.awt.Point;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import gameCore.GameState;
+import gameCore.Tuple;
 
 public class Saver {    
     public static void addTelep(Map<Character,Tuple<Point,Point>> map,Point p,char c) {

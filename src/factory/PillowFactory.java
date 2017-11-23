@@ -1,10 +1,14 @@
-package snakeCore;
+package factory;
 
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import gameCore.GameState;
+import model.IObject;
+import model.Pillow;
 
 public class PillowFactory extends IObjFactory {
 

@@ -1,6 +1,10 @@
-package snakeCore;
+package factory;
 
 import java.awt.Point;
+
+import gameCore.GameState;
+import model.Hedg;
+import model.IObject;
 
 public class HedgFactory extends IObjFactory {
 

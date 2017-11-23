@@ -1,4 +1,4 @@
-package snakeCore;
+package gameCore;
 
 public class Tuple<X, Y> { 
 	  public final X x; 

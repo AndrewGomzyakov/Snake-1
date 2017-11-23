@@ -1,4 +1,4 @@
-package snakeCore;
+package gameCore;
 
 import java.awt.Point;
 import java.io.BufferedReader;
@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 //import java.util.HashMap;
 //import java.util.Map;
+
+import direction.Direction;
 
 public class StateParser {
 	/*

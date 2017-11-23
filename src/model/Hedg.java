@@ -1,7 +1,10 @@
-package snakeCore;
+package model;
 
 import java.awt.Point;
 import java.util.Random;
+
+import direction.Direction;
+import factory.HedgFactory;
 
 public final class Hedg extends IObject {
 
