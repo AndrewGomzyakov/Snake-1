@@ -1,4 +1,6 @@
 package gui;
+import java.awt.Point;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
@@ -95,58 +97,71 @@ public class Gui {
 		{
 			public void paintControl(PaintEvent e)
 			{	
-				e.gc.setBackground(shell.getDisplay().getSystemColor(SWT.COLOR_BLACK));
+				e.gc.setBackground(shell.getDisplay().getSystemColor(SWT.COLOR_YELLOW));
 				e.gc.setFont(font);
 				
 				e.gc.fillRectangle(canvas.getBounds());
 				char a[][] = gameState.getMap();
 				int sqWidth = a[0].length;
 				int sqHeight = a.length;
-				sqHeight = (canvas.getBounds().height - 20) / sqHeight;
-				sqWidth = canvas.getBounds().width / sqWidth;
+				sqHeight = (canvas.getBounds().height - 20) / 9;
+				sqWidth = canvas.getBounds().width / 9;
 				int sqRez = Math.min(sqWidth, sqHeight);
-				for (int i = 0 ; i < a.length; i++)
-					for (int j = 0; j < a[i].length; j++)
+				Point snakeHead = new Point();
+				snakeHead.x = gameState.getHead(gameState.getSnake()).y;
+				snakeHead.y = gameState.getHead(gameState.getSnake()).x;
+				for (int i = -4 ; i <= 4; i++)
+					for (int j = -4; j <= 4; j++)
 					{
-						switch(a[i][j]) {
+						int x = snakeHead.x + i;
+						int y = snakeHead.y + j;
+						if (x < 0)
+							x += a.length;
+						if (x >= a.length)
+							x -= a.length;
+						if (y < 0)
+							y += a[0].length;
+						if (y >= a[0].length)
+							y -= a[0].length;
+						switch(a[x][y]) {
 						case('A'):
-							drawSprite(e, hedgA, j*sqRez, i*sqRez, sqRez);
+							drawSprite(e, hedgA, (j + 4)*sqRez, (i + 4)*sqRez, sqRez);
 							break;
 						case('W'):
-							drawSprite(e, hedgW, j*sqRez, i*sqRez, sqRez);
+							drawSprite(e, hedgW, (j + 4)*sqRez, (i + 4)*sqRez, sqRez);
 							break;
 						case('S'):
-							drawSprite(e, hedgS, j*sqRez, i*sqRez, sqRez);
+							drawSprite(e, hedgS,(j + 4)*sqRez, (i + 4)*sqRez, sqRez);
 							break;
 						case('D'):
-							drawSprite(e, hedgD, j*sqRez, i*sqRez, sqRez);
+							drawSprite(e, hedgD, (j + 4)*sqRez, (i + 4)*sqRez, sqRez);
 							break;
 						case('@'):
-							drawColoredSq(e, j*sqRez, i*sqRez, sqRez - 1, SWT.COLOR_GREEN);
+							drawColoredSq(e, (j + 4)*sqRez, (i + 4)*sqRez, sqRez - 1, SWT.COLOR_GREEN);
 							break;
 						case('?'):
-							drawColoredSq(e, j*sqRez, i*sqRez, sqRez - 1, SWT.COLOR_DARK_GREEN);
+							drawColoredSq(e, (j + 4)*sqRez, (i + 4)*sqRez, sqRez - 1, SWT.COLOR_DARK_GREEN);
 							break;
 						case('#'):
-							drawColoredSq(e, j*sqRez, i*sqRez, sqRez - 1, SWT.COLOR_BLACK);
+							drawColoredSq(e, (j + 4)*sqRez, (i + 4)*sqRez, sqRez - 1, SWT.COLOR_BLACK);
 							break;
 						case('+'):
-							drawColoredSq(e, j*sqRez, i*sqRez, sqRez - 1, SWT.COLOR_WHITE);
+							drawColoredSq(e, (j + 4)*sqRez, (i + 4)*sqRez, sqRez - 1, SWT.COLOR_WHITE);
 							break;
 						case('%'):
-							drawSprite(e, pil, j*sqRez, i*sqRez, sqRez);
+							drawSprite(e, pil, (j + 4)*sqRez, (i + 4)*sqRez, sqRez);
 							break;
 						case('.'):
-							drawColoredSq(e, j*sqRez, i*sqRez, sqRez - 1, SWT.COLOR_BLUE);
+							drawColoredSq(e, (j + 4)*sqRez, (i + 4)*sqRez, sqRez - 1, SWT.COLOR_BLUE);
 							break;
 						case('*'):
-							drawSprite(e, apple, j*sqRez, i*sqRez, sqRez);
+							drawSprite(e, apple, (j + 4)*sqRez, (i + 4)*sqRez, sqRez);
 							break;
 						case('P'):
-							drawSprite(e, tel1, j*sqRez, i*sqRez, sqRez);
+							drawSprite(e, tel1, (j + 4)*sqRez, (i + 4)*sqRez, sqRez);
 							break;
 						case('p'):
-							drawSprite(e, tel2, j*sqRez, i*sqRez, sqRez);
+							drawSprite(e, tel2, (j + 4)*sqRez, (i + 4)*sqRez, sqRez);
 							break;
 						}
 					}
