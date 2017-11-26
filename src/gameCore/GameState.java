@@ -197,6 +197,10 @@ public class GameState {
     	return this.snake;
     }
 
+    public ArrayList<Snake> getSnakeClone(){
+    	return this.snakeClone;
+    }
+    
     private IObject objsCollision(Point p) {
         for (IObject obj : getObjsArr())
             for (Point el : obj.getLocs())
@@ -211,26 +215,8 @@ public class GameState {
     
     
 
-    public boolean turnSnake1(Dir dir) {
+    public boolean turnSnake(Snake snake, Dir dir) {
         return snake.turn(new Direction(dir));
-    }
-    
-    public boolean turnSnake2(Dir dir) {
-    	if (snakeClone.size() >= 1)
-    		return snakeClone.get(0).turn(new Direction(dir));
-    	return false;
-    }
-    
-    public boolean turnSnake3(Dir dir) {
-    	if (snakeClone.size() >= 2)
-    		return snakeClone.get(1).turn(new Direction(dir));
-    	return false;
-    }
-    
-    public boolean turnSnake4(Dir dir) {
-    	if (snakeClone.size() >= 3)
-    		return snakeClone.get(2).turn(new Direction(dir));
-    	return false;
     }
     
     public boolean turnSnake(Snake snake, Point dir) {

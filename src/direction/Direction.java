@@ -18,6 +18,9 @@ public class Direction{
 		dir = d;
 	}
 
+	public Dir getDir() {
+		return dir;
+	}
 	
 	private void setPointDir(Point p) {
 		if(p.equals(new Point(0,1))) dir = Dir.Down;
