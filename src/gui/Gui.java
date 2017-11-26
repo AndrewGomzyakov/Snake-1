@@ -8,6 +8,7 @@ import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Transform;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Display;
@@ -88,6 +89,7 @@ public class Gui {
 				else
 				{
 					canvas.redraw();
+					
 					display.timerExec(500, this);	
 				}
 			}
@@ -97,9 +99,10 @@ public class Gui {
 		{
 			public void paintControl(PaintEvent e)
 			{	
+				Transform oldTr = new Transform(display.getCurrent());
+				Transform transform = new Transform(display);				
 				e.gc.setBackground(shell.getDisplay().getSystemColor(SWT.COLOR_YELLOW));
 				e.gc.setFont(font);
-				
 				e.gc.fillRectangle(canvas.getBounds());
 				char a[][] = gameState.getMap();
 				int sqWidth = a[0].length;
@@ -107,6 +110,19 @@ public class Gui {
 				sqHeight = (canvas.getBounds().height - 20) / 9;
 				sqWidth = canvas.getBounds().width / 9;
 				int sqRez = Math.min(sqWidth, sqHeight);
+				if (gameState.getSnake().getDir().getDir() == Dir.Down) {
+					transform.translate(9 * sqRez, 9 * sqRez);
+					transform.rotate(180);
+				}
+				if (gameState.getSnake().getDir().getDir() == Dir.Left) {
+					transform.translate(9 * sqRez, 0);
+					transform.rotate(90);
+				}
+				if (gameState.getSnake().getDir().getDir() == Dir.Right) {
+					transform.translate(0, 9 * sqRez);
+					transform.rotate(270);
+				}
+				e.gc.setTransform(transform);
 				Point snakeHead = new Point();
 				snakeHead.x = gameState.getHead(gameState.getSnake()).y;
 				snakeHead.y = gameState.getHead(gameState.getSnake()).x;
@@ -165,7 +181,7 @@ public class Gui {
 							break;
 						}
 					}
-				
+				e.gc.setTransform(oldTr);
 				//e.gc.drawText("Длина змейки:  " + gameState.getLenght(), 10, sqRez * (a.length)); TODO
 				if (flag) {
 					e.gc.setBackground(shell.getDisplay().getSystemColor(SWT.COLOR_DARK_MAGENTA));
