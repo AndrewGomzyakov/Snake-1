@@ -53,7 +53,7 @@ public class GameState {
         rnd = new Random();
         height = maze.length;
         width = maze[0].length;// bad
-        snake = new Snake(snakePos, snakeDir.getIntDir());
+        snake = new Snake(snakePos, snakeDir.getDir());
         for (Tuple<String, Integer[]> tup : objsCreators) {
             setObjs(Dic.get(tup.x).configure(this, tup.y));
         }

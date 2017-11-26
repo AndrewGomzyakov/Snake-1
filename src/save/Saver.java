@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import direction.Dir;
 import gameCore.GameState;
 import gameCore.Tuple;
 
@@ -119,7 +120,13 @@ public class Saver {
             
         }
         rezultStr.append('\n');
-        rezultStr.append(Integer.toString(game.getSnakeDir(game.getSnake()).getIntDir()) + '\n');
+        Dir dir = game.getSnakeDir(game.getSnake()).getDir();
+        int num = 0;
+        if (dir == Dir.Right) num = 6;
+        if (dir == Dir.Left) num = 4;
+        if (dir == Dir.Up) num = 8;
+        if (dir == Dir.Down) num = 2;
+        rezultStr.append(Integer.toString(num) + '\n');
         if (pil.size() != 0) 
         {
             rezultStr.append("Pillow -1 ");

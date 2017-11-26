@@ -2,6 +2,7 @@ package model;
 import java.util.LinkedList;//Queue required
 import java.util.List;
 
+import direction.Dir;
 import direction.Direction;
 
 import java.awt.Point;
@@ -13,7 +14,7 @@ public class Snake{
     private boolean isMoving;
     private Point next;
 
-    public Snake(Point[] b, int dir) { 
+    public Snake(Point[] b, Dir dir) { 
     	isMoving=true; 
     	buffer=0;
     	body=new LinkedList<Point>();
@@ -24,7 +25,7 @@ public class Snake{
     }
     
     public boolean turn(Direction newdir){
-        if (dir.IsOpposit(newdir)) return false;
+        if (dir.isOpposit(newdir)) return false;
         dir=newdir;
         next=null;
         next=getNext();

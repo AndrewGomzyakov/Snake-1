@@ -27,8 +27,8 @@ public class SnakeCloner {
 		for (int i = 3; i < cloned.getBody().size(); i++) {
 			snakePoints2.add(cloned.getBody().get(i));
 		}
-		Snake snake1 = new Snake(snakePoints1.toArray(new Point[snakePoints1.size()]), 10 - cloned.getDir().getIntDir());
-		Snake snake2 = new Snake(snakePoints2.toArray(new Point[snakePoints2.size()]), cloned.getDir().getIntDir());
+		Snake snake1 = new Snake(snakePoints1.toArray(new Point[snakePoints1.size()]), cloned.getDir().getOpposit());
+		Snake snake2 = new Snake(snakePoints2.toArray(new Point[snakePoints2.size()]), cloned.getDir().getDir());
 		if (snakes.size() < 3)
 			snakes.add(snake1);
 		snakes.add(snake2);

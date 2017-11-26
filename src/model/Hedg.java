@@ -3,6 +3,7 @@ package model;
 import java.awt.Point;
 import java.util.Random;
 
+import direction.Dir;
 import direction.Direction;
 import factory.HedgFactory;
 
@@ -28,7 +29,7 @@ public final class Hedg extends IObject {
         this.fact = fact;
         loc = p;
         dir = new Direction(d);
-        ico = makeIco(dir.getIntDir());
+        ico = makeIco(dir.getDir());
     }
 
     public Hedg(HedgFactory fact) {
@@ -40,21 +41,20 @@ public final class Hedg extends IObject {
 
     private void commonInit() {
         rnd = new Random();
-        dir = new Direction((rnd.nextInt(4) + 1) * 2);
-        ico = makeIco(dir.getIntDir());
+        Dir[] dirs = {Dir.Right, Dir.Left, Dir.Up, Dir.Down};
+        dir = new Direction(dirs[rnd.nextInt(4)]);
+        ico = makeIco(dir.getDir());
     }
 
-    private char makeIco(int dir) {
-        switch (dir) {
-            case 6:
+    private char makeIco(Dir dir) {
+    	if (dir == Dir.Right)
                 return 'D';
-            case 8:
+    	if (dir == Dir.Up)
                 return 'W';
-            case 2:
+    	if (dir == Dir.Down)
                 return 'S';
-            case 4:
+    	if (dir == Dir.Left)
                 return 'A';
-        }
         return 'F';
     }
 
@@ -76,7 +76,7 @@ public final class Hedg extends IObject {
      */
     @Override
     public boolean interact(Snake snake, Point p) {
-        if (snake.getDir().IsOpposit(dir)) {
+        if (snake.getDir().isOpposit(dir)) {
             snake.grow(2);
             commonInit();
             // replace();

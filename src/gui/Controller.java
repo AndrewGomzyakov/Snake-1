@@ -1,9 +1,5 @@
 package gui;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.KeyEvent;
-
-import direction.Dir;
 import direction.Direction;
 import gameCore.GameState;
 import gameCore.Tuple;

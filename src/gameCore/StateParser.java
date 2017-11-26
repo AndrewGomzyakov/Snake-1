@@ -8,6 +8,7 @@ import java.util.ArrayList;
 //import java.util.HashMap;
 //import java.util.Map;
 
+import direction.Dir;
 import direction.Direction;
 
 public class StateParser {
@@ -50,7 +51,13 @@ public class StateParser {
 	}
 	
 	private static Direction getDir(BufferedReader br) throws NumberFormatException, IOException {
-		return new Direction(Integer.parseInt(br.readLine()));
+		int num = Integer.parseInt(br.readLine());
+		Dir dir = null;
+		if(num == 2) dir = Dir.Down;
+		if(num == 8) dir = Dir.Up;
+		if(num == 4) dir = Dir.Left;
+		if(num == 6) dir = Dir.Right;
+		return new Direction(dir);
 	}
 	
 	//@SuppressWarnings("unchecked")
