@@ -135,6 +135,10 @@ public class GameState {
             return true;
         
         Point next = collise(snake);
+        for (int i = 0 ; i< snakeClone.size(); i++) {
+        	if (snakeClone.get(i).getBody().contains(next))
+        		return die(snake);
+        }
         if (maze[next.y][next.x] == '+' || (maze[next.y][next.x] == '.' && snake.makeStep()))
             return true;
         else
