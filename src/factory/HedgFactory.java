@@ -15,7 +15,7 @@ public class HedgFactory extends IObjFactory {
         this.game = game;
         Hedg[] tmp =new Hedg[ps.length/2];
         for(int i=0;i<ps.length;i+=2) {
-            tmp[i/2]=new Hedg(this,ps[i],ps[i+1]);
+            tmp[i/2]=new Hedg(this, ps[i], ps[i+1]);
         }
         return tmp;//(Hedg[]) Arrays.stream(ps).map((Point p)->new Hedg(this,p)).toArray(Hedg[]::new);
         

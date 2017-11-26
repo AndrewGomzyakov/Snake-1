@@ -25,6 +25,7 @@ public final class Hedg extends IObject {
         loc = p;
         commonInit();
     }
+    
     public Hedg(HedgFactory fact, Point p,Point d) {
         this.fact = fact;
         loc = p;

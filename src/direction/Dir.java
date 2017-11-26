@@ -5,10 +5,4 @@ public enum Dir {
 	Down,
 	Left, 
 	Right
-	
-	//public static Dir ofInt(int i) {
-	//	if (i == 2) {
-	//		return Down;
-	//	}
-	//}
 }
