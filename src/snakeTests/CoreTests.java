@@ -88,10 +88,10 @@ public class CoreTests extends Assert {
     
     
     @Test
-    public void testController(){
+    public void testController1(){
     	GameState game = StateParser.makeGame("tests\\T1.txt");
     	Controller.snakeController(game, SWT.ARROW_RIGHT);
-    	assertEquals(game.getSnake().getDir().getDir(), Dir.Right);
+    	assertEquals(game.getSnake().getDir().getDir(), Dir.Left);
     	  		
     }
     
@@ -99,7 +99,7 @@ public class CoreTests extends Assert {
     public void testController2(){
     	GameState game = StateParser.makeGame("tests\\T1.txt");
     	Controller.snakeController(game, SWT.ARROW_LEFT);
-    	assertEquals(game.getSnake().getDir().getDir(), Dir.Left);
+    	assertEquals(game.getSnake().getDir().getDir(), Dir.Right);
     	  		
     }
     

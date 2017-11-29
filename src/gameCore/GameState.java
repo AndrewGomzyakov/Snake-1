@@ -73,7 +73,7 @@ public class GameState {
             Point[] ps = getObjsArr().get(i).getLocs();
             char ico = getObjsArr().get(i).getIcon();
             for (int j = 0; j < ps.length; j++) {
-                Point p = ps[j];// Ïðîâåðêà íà ïåðåñå÷åíèå
+                Point p = ps[j];// ÃÃ°Ã®Ã¢Ã¥Ã°ÃªÃ  Ã­Ã  Ã¯Ã¥Ã°Ã¥Ã±Ã¥Ã·Ã¥Ã­Ã¨Ã¥
                 map[p.y][p.x] = ico;
             }
         }
@@ -210,13 +210,22 @@ public class GameState {
     }
 
     public void feedSnake(Snake snake, int val) {
-        snake.grow(val); //TODO Çàêðûòü!
+        snake.grow(val); //TODO Ã‡Ã ÃªÃ°Ã»Ã²Ã¼!
     }
     
     
 
     public boolean turnSnake(Snake snake, Dir dir) {
-        return snake.turn(new Direction(dir));
+    	Dir dirs[] = {Dir.Left, Dir.Up, Dir.Right, Dir.Down};
+    	Dir newDir = null;
+    	int curDir = 1;
+    	for (int i = 0 ; i  < dirs.length; i++)
+    		if (dirs[i] == snake.getDir().getDir())
+    			curDir = i;
+    	for (int i = 0; i < dirs.length; i++)
+    		if (dirs[i] == dir)
+    			newDir = dirs[(4 + curDir + i - 1) % 4];
+    	return snake.turn(new Direction(newDir));
     }
     
     public boolean turnSnake(Snake snake, Point dir) {
@@ -287,5 +296,3 @@ public class GameState {
      * private void setObjs(IObject obj) { this.objs.add(obj); }
      */
 }
-
-
