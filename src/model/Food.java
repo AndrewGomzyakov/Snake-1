@@ -1,45 +1,46 @@
 package model;
 
-import java.awt.Point;
-
 import factory.FoodFactory;
+import java.awt.Point;
 
 public final class Food extends IObject {
 
-    private Point loc;
+  private Point loc;
 
-    public Food(FoodFactory fact, Point[] p) {
-        this.fact = fact;
-        loc = p[0];
-    }
-    public Food(FoodFactory fact, Point p) {
-        this.fact = fact;
-        loc = p;
-    }
+  public Food(FoodFactory fact, Point[] p) {
+    this.fact = fact;
+    loc = p[0];
+  }
 
-    /*
-     * private void setFood() { loc=new Point(rnd.nextInt(game.width), rnd.nextInt(game.height));
-     * while (game.getCell(loc)!='.') loc=new Point(rnd.nextInt(game.width),
-     * rnd.nextInt(game.height)); }
-     */
+  public Food(FoodFactory fact, Point p) {
+    this.fact = fact;
+    loc = p;
+  }
 
-    @Override
-    public Point[] getLocs() {
-        return new Point[] {loc};
-    }
+  /*
+   * private void setFood() { loc=new Point(rnd.nextInt(game.width), rnd.nextInt(game.height));
+   * while (game.getCell(loc)!='.') loc=new Point(rnd.nextInt(game.width),
+   * rnd.nextInt(game.height)); }
+   */
 
-    @Override
-    public char getIcon() {
-        return '*';
-    }
+  @Override
+  public Point[] getLocs() {
+    return new Point[]{loc};
+  }
 
-    @Override
-    public void tick() {}
+  @Override
+  public char getIcon() {
+    return '*';
+  }
 
-    @Override
-    public boolean interact(Snake snake, Point p) {
-        snake.grow(1);
-        return false;
-    }
+  @Override
+  public void tick() {
+  }
+
+  @Override
+  public boolean interact(Snake snake, Point p) {
+    snake.grow(1);
+    return false;
+  }
 
 }

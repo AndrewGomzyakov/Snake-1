@@ -1,8 +1,8 @@
 package direction;
 
 public enum Dir {
-	Up,
-	Down,
-	Left, 
-	Right
+  Up,
+  Down,
+  Left,
+  Right
 }

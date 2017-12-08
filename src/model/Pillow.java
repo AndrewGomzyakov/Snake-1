@@ -1,55 +1,55 @@
 package model;
 
-import java.awt.Point;
-
 import factory.PillowFactory;
+import java.awt.Point;
 
 public class Pillow extends IObject {
 
-    private Point loc;
-    private int timer = 0;
-    private int maxTimer = 5;
-    private Snake snake;
+  private Point loc;
+  private int timer = 0;
+  private int maxTimer = 5;
+  private Snake snake;
 
-    public Pillow(PillowFactory fact, Point[] p) {
-        this.fact = fact;
-        loc = p[0];
-    }
-    
-    public Pillow(PillowFactory fact, Point p) {
-        this.fact = fact;
-        loc = p;
-    }
+  public Pillow(PillowFactory fact, Point[] p) {
+    this.fact = fact;
+    loc = p[0];
+  }
 
-    @Override
-    public Point[] getLocs() {
-        return new Point[] {loc};
-    }
+  public Pillow(PillowFactory fact, Point p) {
+    this.fact = fact;
+    loc = p;
+  }
 
-    @Override
-    public char getIcon() {
-        return '%';
-    }
+  @Override
+  public Point[] getLocs() {
+    return new Point[]{loc};
+  }
 
-    @Override
-    public void tick() {
-        if (snake != null)
-            timer += 1;
-        if (timer == maxTimer) {
-            snake.start();
-            snake = null;
-        }
-    }
+  @Override
+  public char getIcon() {
+    return '%';
+  }
 
-    @Override
-    public boolean interact(Snake snake, Point p) {
-        this.snake = snake;
-        snake.stop();
-        return false;
+  @Override
+  public void tick() {
+    if (snake != null) {
+      timer += 1;
     }
+    if (timer == maxTimer) {
+      snake.start();
+      snake = null;
+    }
+  }
 
-    public Snake getSnakeOn() {
-        return snake;
-    }
+  @Override
+  public boolean interact(Snake snake, Point p) {
+    this.snake = snake;
+    snake.stop();
+    return false;
+  }
+
+  public Snake getSnakeOn() {
+    return snake;
+  }
 
 }
