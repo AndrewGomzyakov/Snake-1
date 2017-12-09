@@ -2,6 +2,7 @@ package factory;
 
 import gameCore.GameState;
 import java.awt.Point;
+import java.util.Arrays;
 import model.Hedgehog;
 import model.IObject;
 
@@ -11,13 +12,8 @@ public class HedgehogFactory extends IObjFactory {
 
   @Override
   public Hedgehog[] create(GameState game, Point[] ps) {
-    this.game = game;
-    Hedgehog[] tmp = new Hedgehog[ps.length / 2];
-    for (int i = 0; i < ps.length; i += 2) {
-      tmp[i / 2] = new Hedgehog(this, ps[i], ps[i + 1]);
-    }
-    return tmp;//(Hedgehog[]) Arrays.stream(ps).map((Point p)->new Hedgehog(this,p)).toArray(Hedgehog[]::new);
-
+    return Arrays.stream(ps).map((Point p) -> new Hedgehog(this, p))
+        .toArray(Hedgehog[]::new);
   }
 
   public Hedgehog[] baseConf(GameState game, Integer[] args) {
@@ -39,8 +35,8 @@ public class HedgehogFactory extends IObjFactory {
     }
     Point loc = game.getRndFreePoint();
     while (game.getCell(game.getBoundedCord(game.getSnake(), // TODO what
-        new Point(loc.x + hedg.getDir().getPointDir().x,
-            loc.y + hedg.getDir().getPointDir().y))) != '.') {
+        new Point(loc.x + hedg.getDirection().getPointDir().x,
+            loc.y + hedg.getDirection().getPointDir().y))) != '.') {
       loc = game.getRndFreePoint();
     }
     return new Hedgehog[]{new Hedgehog(this, loc)};

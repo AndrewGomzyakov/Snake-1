@@ -13,6 +13,7 @@ public class Snake {
 
   @Getter
   private LinkedList<Point> body = new LinkedList<>();
+  @Getter
   private int buffer;
   @Getter
   private Direction dir;

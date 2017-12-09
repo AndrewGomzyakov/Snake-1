@@ -3,6 +3,7 @@ package snakeTests;
 import clone.SnakeCloner;
 import direction.Dir;
 import factory.FoodFactory;
+import factory.HedgehogFactory;
 import factory.PillowFactory;
 import factory.TeleportFactory;
 import gameCore.GameState;
@@ -58,8 +59,6 @@ public class CoreTests extends Assert {
     assertEquals('*', cell);
   }
 
-
-  /*
    @Test
    public void testHedg(){
        GameState game = StateParser.makeGame("tests\\T7.txt");
@@ -69,7 +68,7 @@ public class CoreTests extends Assert {
        boolean isHedg = cell == 'A' || cell == 'S' || cell == 'W' || cell == 'D';
        assertTrue(isHedg);
    }
-*/
+
   @Test
   public void testClone() {
     ArrayList<Snake> snakes = new ArrayList<Snake>();

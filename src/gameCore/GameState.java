@@ -10,10 +10,12 @@ import factory.PillowFactory;
 import factory.TeleportFactory;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import lombok.Getter;
 import model.IObject;
 import model.Snake;
 
@@ -30,6 +32,7 @@ public class GameState {
     Dic.put("Pillow", new PillowFactory());
   }
 
+  @Getter
   private Snake snake;
   private ArrayList<Snake> snakeClone = new ArrayList<Snake>();
   private char[][] maze;
@@ -39,15 +42,11 @@ public class GameState {
   private List<IObject> objs = new LinkedList<IObject>();
   private int height;
   private int width;
-  /*
-   * public GameState(String key){ SetMap(key); isAlive=true; //objs.add(e) snake=new Snake(new
-   * Point[] {new Point(4,3),new Point(5,3)},0);//BBAADD!
-   *
-   * }
-   */
-  public char[][] getMaze(){
-	  return this.maze;
+
+  public char[][] getMaze() {
+    return this.maze;
   }
+
   public GameState(char[][] maze, Point[] snakePos, Direction snakeDir,
       ArrayList<Tuple<String, Integer[]>> objsCreators) {
     isAlive = true;
@@ -299,21 +298,12 @@ public class GameState {
     return new Point(width, height);
   }
 
-  public Snake getSnake(Snake snake) {
-    return snake;
-  }
-
   public void setObjs(IObject[] objs) {
     if (objs == null) {
       return;
     }
-    for (IObject obj : objs) {
-      this.objs.add(obj);
-    }
+    this.objs.addAll(Arrays.asList(objs));
   }
-  /*
-   * private void setObjs(IObject obj) { this.objs.add(obj); }
-   */
 }
 
 

@@ -6,7 +6,6 @@ public class Direction {
 
   private Dir dir;
 
-
   public Direction(Point d) {
     setPointDir(d);
   }
@@ -44,8 +43,9 @@ public class Direction {
       dir = Dir.Right;
     } else if (p.equals(new Point(-1, 0))) {
       dir = Dir.Left;
+    } else {
+      int i = 1 / 0; //Need exception
     }
-    dir = Dir.Right;//Need exception
   }
 
   public boolean isOpposit(Direction newDir) {

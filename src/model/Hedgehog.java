@@ -10,7 +10,7 @@ import lombok.Getter;
 public final class Hedgehog extends IObject {
 
   @Getter
-  private Direction dir;
+  private Direction direction;
   private char icon;
   private Point location;
 
@@ -29,8 +29,8 @@ public final class Hedgehog extends IObject {
   public Hedgehog(HedgehogFactory fact, Point p, Point d) {
     this.factory = fact;
     location = p;
-    dir = new Direction(d);
-    icon = makeIcon(dir.getDir());
+    direction = new Direction(d);
+    icon = makeIcon(direction.getDir());
   }
 
   public Hedgehog(HedgehogFactory fact) {
@@ -41,8 +41,8 @@ public final class Hedgehog extends IObject {
 
   private void commonInit() {
     Dir[] dirs = {Dir.Right, Dir.Left, Dir.Up, Dir.Down};
-    dir = new Direction(dirs[new Random().nextInt(4)]);
-    icon = makeIcon(dir.getDir());
+    direction = new Direction(dirs[new Random().nextInt(4)]);
+    icon = makeIcon(direction.getDir());
   }
 
   private char makeIcon(Dir dir) {
@@ -77,7 +77,7 @@ public final class Hedgehog extends IObject {
 
   @Override
   public boolean interact(Snake snake, Point p) {
-    if (snake.getDir().isOpposit(dir)) {
+    if (snake.getDir().isOpposit(direction)) {
       snake.grow(2);
       commonInit();
       return false;
