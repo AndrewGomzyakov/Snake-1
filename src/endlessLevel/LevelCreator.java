@@ -1,5 +1,7 @@
 package endlessLevel;
 
+import java.util.Random;
+
 import direction.Dir;
 import gameCore.GameState;
 
@@ -60,12 +62,38 @@ public class LevelCreator {
 		if (type == 1) {
 			
 			for (int i = 0; i < this.gameSate.getMaze().length; i++) {
-				this.gameSate.getMaze()[i][cord] = '#';
+				this.gameSate.getMaze()[i][cord] = '.';
+			}
+			char[][] a = this.gameSate.getMap();
+			for (int i = 0; i < this.gameSate.getMaze().length; i++) {
+				if (a[i][cord] == '.') {
+					Random rnd = new Random();
+					int ch = rnd.nextInt(100);
+					if (ch <= 10) {
+						this.gameSate.getMaze()[i][cord] = '#';
+					}
+					if (ch > 10 && ch <= 20) {
+						this.gameSate.getMaze()[i][cord] = '+';
+					}
+				}
 			}
 		}
 		else {
 			for (int i = 0; i < this.gameSate.getMaze()[0].length; i++) {
-				this.gameSate.getMaze()[cord][i] = '#';
+				this.gameSate.getMaze()[cord][i] = '.';
+			}
+			char[][] a = this.gameSate.getMap();
+			for (int i = 0; i < this.gameSate.getMaze()[0].length; i++) {
+				if (a[cord][i] == '.') {
+					Random rnd = new Random();
+					int ch = rnd.nextInt(100);
+					if (ch <= 10) {
+						this.gameSate.getMaze()[cord][i] = '#';
+					}
+					if (ch > 10 && ch <= 20) {
+						this.gameSate.getMaze()[cord][i] = '+';
+					}
+				}
 			}
 		}
 	}
