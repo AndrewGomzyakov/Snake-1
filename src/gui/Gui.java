@@ -15,6 +15,8 @@ import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
+
+import endlessLevel.LevelCreator;
 import save.Saver;
 
 
@@ -25,6 +27,7 @@ public class Gui {
   private static Display display = new Display();
   private static Shell shell = new Shell(display);
   private static GameState gameState;
+  private static LevelCreator cr;
   private static Font font = new Font(display, "Arial", 14, SWT.BOLD | SWT.ITALIC);
   private static boolean flag = false;
   private static Image hedgA = new Image(display, ".\\sprites\\hedgA.png");
@@ -61,6 +64,7 @@ public class Gui {
 
   public static void runGame(Canvas canvas, String path, Runnable gameTick) {
     gameState = StateParser.makeGame(path);
+    cr = new LevelCreator(gameState);
     display.timerExec(500, gameTick);
   }
 
@@ -70,9 +74,9 @@ public class Gui {
     shell.setText("Snake Game");
     shell.setSize(400, 400);
     shell.setLayout(new FillLayout());
-
     Runnable gameTick = new Runnable() {
       public void run() {
+    	cr.updateLevel();
         if (!gameState.makeTick()) {
           flag = true;
           canvas.redraw();
@@ -204,6 +208,7 @@ public class Gui {
     });
     shell.open();
     shell.setSize(600, 600);
+    
     runGame(canvas, ".\\levels\\FirstOne.txt", gameTick);
 
     canvas.redraw();

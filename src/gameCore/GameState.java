@@ -45,7 +45,9 @@ public class GameState {
    *
    * }
    */
-
+  public char[][] getMaze(){
+	  return this.maze;
+  }
   public GameState(char[][] maze, Point[] snakePos, Direction snakeDir,
       ArrayList<Tuple<String, Integer[]>> objsCreators) {
     isAlive = true;
