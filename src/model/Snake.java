@@ -3,32 +3,44 @@ package model;
 import direction.Dir;
 import direction.Direction;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 public class Snake {
 
-  private LinkedList<Point> body;
+  @Getter
+  private LinkedList<Point> body = new LinkedList<>();
   private int buffer;
+  @Getter
   private Direction dir;
+  @Getter
   private boolean isMoving;
+  @Setter
   private Point next;
 
   public Snake(Point[] b, Dir dir) {
     isMoving = true;
     buffer = 0;
-    body = new LinkedList<Point>();
-    for (Point p : b) { //�������� �� ������������
-      body.add(p);
-    }
+    //�������� �� ������������
+    body.addAll(Arrays.asList(b));
     this.dir = new Direction(dir);
   }
 
-  public boolean turn(Direction newdir) {
-    if (dir.isOpposit(newdir)) {
+  public Snake(ArrayList<Point> snakePoints, Dir direction) {
+    isMoving = true;
+    buffer = 0;
+    body.addAll(snakePoints);
+    this.dir = new Direction(direction);
+  }
+
+  public boolean turn(Direction newDirection) {
+    if (dir.isOpposit(newDirection)) {
       return false;
     }
-    dir = newdir;
+    dir = newDirection;
     next = null;
     next = getNext();
     return true;
@@ -71,22 +83,6 @@ public class Snake {
       next = new Point(getHead().x + d.x, getHead().y + d.y);
     }
     return next;
-  }
-
-  public void setNext(Point newNext) {
-    next = newNext;
-  }
-
-  public List<Point> getBody() {
-    return body;
-  }
-
-  public Direction getDir() {
-    return dir;
-  }
-
-  public boolean isMoving() {
-    return isMoving;
   }
 
   public Point getHead() {

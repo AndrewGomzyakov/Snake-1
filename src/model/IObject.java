@@ -6,9 +6,9 @@ import java.awt.Point;
 
 public abstract class IObject {
 
-  protected IObjFactory fact;
+  protected IObjFactory factory;
 
-  public abstract Point[] getLocs();
+  public abstract Point[] getLocations();
 
   public abstract char getIcon();
 
@@ -16,7 +16,7 @@ public abstract class IObject {
 
   public abstract boolean interact(Snake snake, Point p);
 
-  public IObjFactory getFact() {
-    return fact;
+  public IObjFactory getFactory() {
+    return factory;
   }
 }

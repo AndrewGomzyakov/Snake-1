@@ -4,7 +4,7 @@ import clone.SnakeCloner;
 import direction.Dir;
 import direction.Direction;
 import factory.FoodFactory;
-import factory.HedgFactory;
+import factory.HedgehogFactory;
 import factory.IObjFactory;
 import factory.PillowFactory;
 import factory.TeleportFactory;
@@ -25,7 +25,7 @@ public class GameState {
 
   static {
     Dic.put("Food", new FoodFactory());
-    Dic.put("Hedg", new HedgFactory());
+    Dic.put("Hedgehog", new HedgehogFactory());
     Dic.put("Teleport", new TeleportFactory());
     Dic.put("Pillow", new PillowFactory());
   }
@@ -74,7 +74,7 @@ public class GameState {
       map[point.y][point.x] = '?';
     }
     for (int i = 0; i < getObjsArr().size(); i++) {
-      Point[] ps = getObjsArr().get(i).getLocs();
+      Point[] ps = getObjsArr().get(i).getLocations();
       char ico = getObjsArr().get(i).getIcon();
       for (int j = 0; j < ps.length; j++) {
         Point p = ps[j];// �������� �� �����������
@@ -168,7 +168,7 @@ public class GameState {
         col = null;
         die(snake);
       } else {
-        setObjs(col.getFact().utilize(col));//TODO Make it better
+        setObjs(col.getFactory().utilize(col));//TODO Make it better
         snake.setNext(getBoundedCord(snake, snake.getNext()));
       }
       col = objsCollision(snake.getNext());
@@ -219,7 +219,7 @@ public class GameState {
 
   private IObject objsCollision(Point p) {
     for (IObject obj : getObjsArr()) {
-      for (Point el : obj.getLocs()) {
+      for (Point el : obj.getLocations()) {
         if (p.x == el.x && p.y == el.y) {
           return obj;
         }

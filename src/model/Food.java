@@ -5,27 +5,21 @@ import java.awt.Point;
 
 public final class Food extends IObject {
 
-  private Point loc;
+  private Point location;
 
   public Food(FoodFactory fact, Point[] p) {
-    this.fact = fact;
-    loc = p[0];
+    this.factory = fact;
+    location = p[0];
   }
 
   public Food(FoodFactory fact, Point p) {
-    this.fact = fact;
-    loc = p;
+    this.factory = fact;
+    location = p;
   }
 
-  /*
-   * private void setFood() { loc=new Point(rnd.nextInt(game.width), rnd.nextInt(game.height));
-   * while (game.getCell(loc)!='.') loc=new Point(rnd.nextInt(game.width),
-   * rnd.nextInt(game.height)); }
-   */
-
   @Override
-  public Point[] getLocs() {
-    return new Point[]{loc};
+  public Point[] getLocations() {
+    return new Point[]{location};
   }
 
   @Override

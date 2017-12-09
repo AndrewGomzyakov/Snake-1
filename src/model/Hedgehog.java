@@ -2,51 +2,50 @@ package model;
 
 import direction.Dir;
 import direction.Direction;
-import factory.HedgFactory;
+import factory.HedgehogFactory;
 import java.awt.Point;
 import java.util.Random;
+import lombok.Getter;
 
-public final class Hedg extends IObject {
+public final class Hedgehog extends IObject {
 
+  @Getter
   private Direction dir;
-  private char ico;
-  private Point loc;
-  private Random rnd;
+  private char icon;
+  private Point location;
 
-  public Hedg(HedgFactory fact, Point[] p) {
-    this.fact = fact;
-    loc = p[0];
+  public Hedgehog(HedgehogFactory factory, Point[] p) {
+    this.factory = factory;
+    location = p[0];
     commonInit();
   }
 
-  public Hedg(HedgFactory fact, Point p) {
-    this.fact = fact;
-    loc = p;
+  public Hedgehog(HedgehogFactory fact, Point p) {
+    this.factory = fact;
+    location = p;
     commonInit();
   }
 
-  public Hedg(HedgFactory fact, Point p, Point d) {
-    this.fact = fact;
-    loc = p;
+  public Hedgehog(HedgehogFactory fact, Point p, Point d) {
+    this.factory = fact;
+    location = p;
     dir = new Direction(d);
-    ico = makeIco(dir.getDir());
+    icon = makeIcon(dir.getDir());
   }
 
-  public Hedg(HedgFactory fact) {
-    this.fact = fact;
+  public Hedgehog(HedgehogFactory fact) {
+    this.factory = fact;
     commonInit();
-    // replace();
   }
 
 
   private void commonInit() {
-    rnd = new Random();
     Dir[] dirs = {Dir.Right, Dir.Left, Dir.Up, Dir.Down};
-    dir = new Direction(dirs[rnd.nextInt(4)]);
-    ico = makeIco(dir.getDir());
+    dir = new Direction(dirs[new Random().nextInt(4)]);
+    icon = makeIcon(dir.getDir());
   }
 
-  private char makeIco(Dir dir) {
+  private char makeIcon(Dir dir) {
     if (dir == Dir.Right) {
       return 'D';
     }
@@ -63,36 +62,27 @@ public final class Hedg extends IObject {
   }
 
   @Override
-  public Point[] getLocs() {
-    return new Point[]{loc};
+  public Point[] getLocations() {
+    return new Point[]{location};
   }
 
   @Override
   public char getIcon() {
-    return ico;
+    return icon;
   }
 
   @Override
   public void tick() {
   }
 
-  /*
-   * private void replace() { }
-   */
   @Override
   public boolean interact(Snake snake, Point p) {
     if (snake.getDir().isOpposit(dir)) {
       snake.grow(2);
       commonInit();
-      // replace();
       return false;
     } else {
       return true;
     }
   }
-
-  public Direction getDir() {
-    return dir;
-  }
-
 }

@@ -63,7 +63,7 @@ public class CoreTests extends Assert {
    @Test
    public void testHedg(){
        GameState game = StateParser.makeGame("tests\\T7.txt");
-       IObject[] t = (new HedgFactory()).create(game, new Point[] {new Point(0, 1)});
+       IObject[] t = (new HedgehogFactory()).create(game, new Point[] {new Point(0, 1)});
        game.setObjs(t);
        char cell = game.getCell(new Point(0, 1));
        boolean isHedg = cell == 'A' || cell == 'S' || cell == 'W' || cell == 'D';

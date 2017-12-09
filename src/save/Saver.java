@@ -25,7 +25,7 @@ public class Saver {
     StringBuffer rezultStr = new StringBuffer();
     List<Point> food = new ArrayList<Point>();
     List<Point> pil = new ArrayList<Point>();
-    List<Point> hedg = new ArrayList<Point>();
+    List<Point> hedgehog = new ArrayList<Point>();
     Map<Character, Tuple<Point, Point>> tels = new HashMap<Character, Tuple<Point, Point>>();
 
     char[][] a = game.getMap();
@@ -35,30 +35,30 @@ public class Saver {
         switch (a[i][j]) {
           case ('A'):
             Point p1 = new Point(i, j);
-            hedg.add(p1);
+            hedgehog.add(p1);
             p1 = new Point(-1, 0);
-            hedg.add(p1);
+            hedgehog.add(p1);
             rezultStr.append('.');
             break;
           case ('W'):
             Point p2 = new Point(i, j);
-            hedg.add(p2);
+            hedgehog.add(p2);
             p2 = new Point(0, -1);
-            hedg.add(p2);
+            hedgehog.add(p2);
             rezultStr.append('.');
             break;
           case ('S'):
             Point p3 = new Point(i, j);
-            hedg.add(p3);
+            hedgehog.add(p3);
             p3 = new Point(1, 0);
-            hedg.add(p3);
+            hedgehog.add(p3);
             rezultStr.append('.');
             break;
           case ('D'):
             Point p4 = new Point(i, j);
-            hedg.add(p4);
+            hedgehog.add(p4);
             p4 = new Point(0, 1);
-            hedg.add(p4);
+            hedgehog.add(p4);
             rezultStr.append('.');
             break;
           case ('%'):
@@ -157,13 +157,15 @@ public class Saver {
       rezultStr.append('\n');
     }
 
-    if (hedg.size() != 0) {
-      rezultStr.append("Hedg -1 ");
-      for (int i = 0; i < hedg.size(); i += 2) {
+    if (hedgehog.size() != 0) {
+      rezultStr.append("Hedgehog -1 ");
+      for (int i = 0; i < hedgehog.size(); i += 2) {
         rezultStr
-            .append(Integer.toString(hedg.get(i).y) + ' ' + Integer.toString(hedg.get(i).x) + ' ');
+            .append(Integer.toString(hedgehog.get(i).y) + ' ' + Integer.toString(hedgehog.get(i).x)
+                + ' ');
         rezultStr.append(
-            Integer.toString(hedg.get(i + 1).y) + ' ' + Integer.toString(hedg.get(i + 1).x) + ' ');
+            Integer.toString(hedgehog.get(i + 1).y) + ' ' + Integer.toString(hedgehog.get(i + 1).x)
+                + ' ');
       }
     }
     try {

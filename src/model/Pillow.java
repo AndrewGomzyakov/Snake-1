@@ -5,24 +5,24 @@ import java.awt.Point;
 
 public class Pillow extends IObject {
 
-  private Point loc;
+  private Point location;
   private int timer = 0;
   private int maxTimer = 5;
   private Snake snake;
 
   public Pillow(PillowFactory fact, Point[] p) {
-    this.fact = fact;
-    loc = p[0];
+    this.factory = fact;
+    location = p[0];
   }
 
   public Pillow(PillowFactory fact, Point p) {
-    this.fact = fact;
-    loc = p;
+    this.factory = fact;
+    location = p;
   }
 
   @Override
-  public Point[] getLocs() {
-    return new Point[]{loc};
+  public Point[] getLocations() {
+    return new Point[]{location};
   }
 
   @Override

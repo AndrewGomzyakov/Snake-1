@@ -6,32 +6,32 @@ import java.awt.Point;
 
 public class Teleport extends IObject {
 
-  private char ico;
+  private char icon;
   private Point enterA;
   private Point enterB;
 
-  public Teleport(TeleportFactory fact, char ico, Point[] ps) {
-    this.fact = fact;
+  public Teleport(TeleportFactory fact, char icon, Point[] ps) {
+    this.factory = fact;
     enterA = ps[0];
     enterB = ps[1];
-    this.ico = ico;
+    this.icon = icon;
   }
 
-  public Teleport(TeleportFactory fact, char ico, Point a, Point b) {
-    this.fact = fact;
+  public Teleport(TeleportFactory fact, char icon, Point a, Point b) {
+    this.factory = fact;
     enterA = a;
     enterB = b;
-    this.ico = ico;
+    this.icon = icon;
   }
 
   @Override
-  public Point[] getLocs() {
+  public Point[] getLocations() {
     return new Point[]{enterA, enterB};
   }
 
   @Override
   public char getIcon() {
-    return ico;
+    return icon;
   }
 
   @Override
@@ -40,20 +40,21 @@ public class Teleport extends IObject {
 
   @Override
   public boolean interact(Snake snake, Point p) {
-    Point targ;
+    Point target;
     if (p.x == enterA.x && p.y == enterA.y) {
-      targ = enterB;
+      target = enterB;
     } else // (p.x==enterB.x && p.y==enterB.y)
     {
-      targ = enterA;
+      target = enterA;
     }
     Point dir = snake.getDir().getPointDir();
-    snake.setNext(new Point(targ.x + dir.x, targ.y + dir.y));
+    snake.setNext(new Point(target.x + dir.x, target.y + dir.y));
     return false;
   }
 
-  public IObjFactory getProducer() {
-    return fact;
+  @Override
+  public IObjFactory getFactory() {
+    return factory;
   }
 
 }
