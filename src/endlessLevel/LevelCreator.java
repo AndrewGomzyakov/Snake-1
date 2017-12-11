@@ -82,7 +82,10 @@ public class LevelCreator {
         x = i;
         y = coordinate;
       }
-      this.gameState.getMaze()[x][y] = '.';
+      if (this.gameState.getMaze()[x][y] == '#' || this.gameState.getMaze()[x][y] == '+')
+    	  this.gameState.getMaze()[x][y] = '.';
+      if (this.gameState.getMaze()[x][y] == '!')
+    	  this.gameState.getMaze()[x][y] = '#';
     }
   }
 
@@ -99,7 +102,7 @@ public class LevelCreator {
   }
 
   private void createNewWalls(int maxLength, int coordinate, boolean swapValues) {
-    //deleteOldWalls(maxLength, coordinate, swapValues);
+    deleteOldWalls(maxLength, coordinate, swapValues);
     char[][] map = this.gameState.getMap();
     int x;
     int y;
@@ -121,8 +124,12 @@ public class LevelCreator {
     	  for (int j = 0; j < fig[num].length / 2; j++) {
     		  int cordx = (x + fig[num][j * 2+1]) % this.gameState.getMaze().length;
     		  int cordy = (y + fig[num][j * 2]) % this.gameState.getMaze()[0].length;
-    		  if (map[cordx][cordy] == '.')
-    			  this.gameState.getMaze()[cordx][cordy] = '#';
+    		  if (map[cordx][cordy] == '.') {
+    			  if (cordx == x || cordy == y)
+    				  this.gameState.getMaze()[cordx][cordy] = '#';
+    			  else
+    				  this.gameState.getMaze()[cordx][cordy] = '!';
+    		  }
     	  }
       }
       //this.gameState.getMaze()[x][y] = generateWall();
