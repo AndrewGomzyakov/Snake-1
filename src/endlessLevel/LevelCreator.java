@@ -1,6 +1,9 @@
 package endlessLevel;
 
 import gameCore.GameState;
+
+import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class LevelCreator {
@@ -10,6 +13,12 @@ public class LevelCreator {
   private int l;
   private int u;
   private int d;
+  private int[][] fig = {{0, 0, 1, 0, 1, 1, 2, 1}, 
+		  				{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 0, 2, 1, 2, 3, 2, 4, 2},
+  						{0, 0, 1, 0, 1, 1, 1, 2},
+  						{0, 0, 0, 1, 1, 0, 1, 1}};
+  
+  private ArrayList<int[]> a = new ArrayList<int[]>();
 
   public LevelCreator(GameState gameState) {
     this.gameState = gameState;
@@ -26,8 +35,9 @@ public class LevelCreator {
           u--;
           d++;
         } else {
-          updateMap(0, (this.gameState.getHead(this.gameState.getSnake()).y + 7)
-              % this.gameState.getMap().length);
+        	updateMap(0, (this.gameState.getHead(this.gameState.getSnake()).y - 7
+                    + this.gameState.getMap().length)
+                    % this.gameState.getMap().length);          
         }
         break;
       case Down:
@@ -35,9 +45,8 @@ public class LevelCreator {
           d--;
           u++;
         } else {
-          updateMap(0, (this.gameState.getHead(this.gameState.getSnake()).y - 7
-              + this.gameState.getMap().length)
-              % this.gameState.getMap().length);
+        	updateMap(0, (this.gameState.getHead(this.gameState.getSnake()).y + 7)
+                    % this.gameState.getMap().length);
         }
         break;
       case Left:
@@ -105,7 +114,18 @@ public class LevelCreator {
       if (map[x][y] != '.') {
         continue;
       }
-      this.gameState.getMaze()[x][y] = generateWall();
+      Random rnd = new Random();
+      int ch = rnd.nextInt(100);
+      if (ch <= 2) {
+    	  int num = rnd.nextInt(fig.length);
+    	  for (int j = 0; j < fig[num].length / 2; j++) {
+    		  int cordx = (x + fig[num][j * 2+1]) % this.gameState.getMaze().length;
+    		  int cordy = (y + fig[num][j * 2]) % this.gameState.getMaze()[0].length;
+    		  if (map[cordx][cordy] == '.')
+    			  this.gameState.getMaze()[cordx][cordy] = '#';
+    	  }
+      }
+      //this.gameState.getMaze()[x][y] = generateWall();
 
     }
   }

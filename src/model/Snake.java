@@ -6,6 +6,8 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -78,6 +80,21 @@ public class Snake {
     buffer += val;
   }
 
+  public void setNext(Point newNext) {
+	    next = newNext;
+	  }
+  public List<Point> getBody() {
+	    return body;
+	  }
+  
+  public Direction getDir() {
+	    return dir;
+	  }
+
+  public boolean isMoving() {
+	    return isMoving;
+	  }
+  
   public Point getNext() {
     if (next == null) {
       Point d = dir.getPointDir();
