@@ -125,17 +125,23 @@ public class LevelCreator {
     		  int cordx = (x + fig[num][j * 2+1]) % this.gameState.getMaze().length;
     		  int cordy = (y + fig[num][j * 2]) % this.gameState.getMaze()[0].length;
     		  if (map[cordx][cordy] == '.') {
-    			  if (cordx == x || cordy == y)
-    				  this.gameState.getMaze()[cordx][cordy] = '#';
-    			  else
-    				  this.gameState.getMaze()[cordx][cordy] = '!';
+    			  if (swapValues) {
+    				  if (cordx == coordinate)
+    					  this.gameState.getMaze()[cordx][cordy] = '#';
+    				  else
+        				  this.gameState.getMaze()[cordx][cordy] = '!';
+    			  }
+    			  else {
+    				  if (cordy == coordinate)
+    					  this.gameState.getMaze()[cordx][cordy] = '#';
+    				  else
+        				  this.gameState.getMaze()[cordx][cordy] = '!';
+    			  }
     		  }
     	  }
-      }
+      }}
       //this.gameState.getMaze()[x][y] = generateWall();
-
     }
-  }
 
   private void updateMap(int type, int coordinate) {
     if (type == 1) {
