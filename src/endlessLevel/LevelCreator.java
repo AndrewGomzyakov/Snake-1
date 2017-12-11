@@ -99,7 +99,7 @@ public class LevelCreator {
   }
 
   private void createNewWalls(int maxLength, int coordinate, boolean swapValues) {
-    deleteOldWalls(maxLength, coordinate, swapValues);
+    //deleteOldWalls(maxLength, coordinate, swapValues);
     char[][] map = this.gameState.getMap();
     int x;
     int y;
