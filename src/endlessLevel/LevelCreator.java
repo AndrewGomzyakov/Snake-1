@@ -1,32 +1,32 @@
 package endlessLevel;
 
 import gameCore.GameState;
-
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class LevelCreator {
+
+  private int magic;
 
   private GameState gameState;
   private int r;
   private int l;
   private int u;
   private int d;
-  private int[][] fig = {{0, 0, 1, 0, 1, 1, 2, 1}, 
-		  				{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 0, 2, 1, 2, 3, 2, 4, 2},
-  						{0, 0, 1, 0, 1, 1, 1, 2},
-  						{0, 0, 0, 1, 1, 0, 1, 1}};
-  
-  private ArrayList<int[]> a = new ArrayList<int[]>();
-
+  private int[][] fig = {{0, 0, 1, 0, 1, 1, 2, 1},
+      {2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 0, 2, 1, 2, 3, 2, 4, 2},
+      {0, 0, 1, 0, 1, 1, 1, 2},
+      {0, 0, 0, 1, 1, 0, 1, 1}};
   public LevelCreator(GameState gameState) {
     this.gameState = gameState;
-    r = gameState.getMap().length / 2 - 6;
-    l = r;
-    u = gameState.getMap()[0].length / 2 - 6;
-    d = u;
+    magic = 9 / 2 + 3;
+    r = gameState.getMap().length - gameState.getHead(gameState.getSnake()).x;
+    l = gameState.getMap().length - r;
+    u = gameState.getMap()[0].length - gameState.getHead(gameState.getSnake()).y;
+    d = gameState.getMap()[0].length - u;
   }
+
+  private ArrayList<int[]> a = new ArrayList<int[]>();
 
   public void updateLevel() {
     switch (this.gameState.getSnake().getDir().getDir()) {
@@ -35,9 +35,9 @@ public class LevelCreator {
           u--;
           d++;
         } else {
-        	updateMap(0, (this.gameState.getHead(this.gameState.getSnake()).y - 7
-                    + this.gameState.getMap().length)
-                    % this.gameState.getMap().length);          
+          updateMap(Movement.Vertical, (this.gameState.getHead(this.gameState.getSnake()).y - magic
+              + this.gameState.getMap().length)
+              % this.gameState.getMap().length);
         }
         break;
       case Down:
@@ -45,8 +45,8 @@ public class LevelCreator {
           d--;
           u++;
         } else {
-        	updateMap(0, (this.gameState.getHead(this.gameState.getSnake()).y + 7)
-                    % this.gameState.getMap().length);
+          updateMap(Movement.Vertical, (this.gameState.getHead(this.gameState.getSnake()).y + magic)
+              % this.gameState.getMap().length);
         }
         break;
       case Left:
@@ -54,7 +54,8 @@ public class LevelCreator {
           l--;
           r++;
         } else {
-          updateMap(1, (this.gameState.getHead(this.gameState.getSnake()).x - 1 - 6
+          updateMap(Movement.Horizontal,
+              (this.gameState.getHead(this.gameState.getSnake()).x - magic
               + this.gameState.getMap()[0].length)
               % this.gameState.getMap()[0].length);
         }
@@ -64,7 +65,9 @@ public class LevelCreator {
           r--;
           l++;
         } else {
-          updateMap(1, (this.gameState.getHead(this.gameState.getSnake()).x + 1 + 6)
+          updateMap(Movement.Horizontal,
+              (this.gameState.getHead(this.gameState.getSnake()).x + magic
+                  + this.gameState.getMap()[0].length)
               % this.gameState.getMap()[0].length);
         }
         break;
@@ -82,23 +85,13 @@ public class LevelCreator {
         x = i;
         y = coordinate;
       }
-      if (this.gameState.getMaze()[x][y] == '#' || this.gameState.getMaze()[x][y] == '+')
-    	  this.gameState.getMaze()[x][y] = '.';
-      if (this.gameState.getMaze()[x][y] == '!')
-    	  this.gameState.getMaze()[x][y] = '#';
+      if (this.gameState.getMaze()[x][y] == '#' || this.gameState.getMaze()[x][y] == '+') {
+        this.gameState.getMaze()[x][y] = '.';
+      }
+      if (this.gameState.getMaze()[x][y] == '!') {
+        this.gameState.getMaze()[x][y] = '#';
+      }
     }
-  }
-
-  private char generateWall() {
-    Random rnd = new Random();
-    int ch = rnd.nextInt(100);
-    if (ch <= 10) {
-      return '#';
-    }
-    if (ch <= 20) {
-      return '+';
-    }
-    return '.';
   }
 
   private void createNewWalls(int maxLength, int coordinate, boolean swapValues) {
@@ -120,34 +113,53 @@ public class LevelCreator {
       Random rnd = new Random();
       int ch = rnd.nextInt(100);
       if (ch <= 2) {
-    	  int num = rnd.nextInt(fig.length);
-    	  for (int j = 0; j < fig[num].length / 2; j++) {
-    		  int cordx = (x + fig[num][j * 2+1]) % this.gameState.getMaze().length;
-    		  int cordy = (y + fig[num][j * 2]) % this.gameState.getMaze()[0].length;
-    		  if (map[cordx][cordy] == '.') {
-    			  if (swapValues) {
-    				  if (cordx == coordinate)
-    					  this.gameState.getMaze()[cordx][cordy] = '#';
-    				  else
-        				  this.gameState.getMaze()[cordx][cordy] = '!';
-    			  }
-    			  else {
-    				  if (cordy == coordinate)
-    					  this.gameState.getMaze()[cordx][cordy] = '#';
-    				  else
-        				  this.gameState.getMaze()[cordx][cordy] = '!';
-    			  }
-    		  }
-    	  }
-      }}
-      //this.gameState.getMaze()[x][y] = generateWall();
+        int num = rnd.nextInt(fig.length);
+        for (int j = 0; j < fig[num].length / 2; j++) {
+          int cordx = (x + fig[num][j * 2 + 1]) % this.gameState.getMaze().length;
+          int cordy = (y + fig[num][j * 2]) % this.gameState.getMaze()[0].length;
+          if (map[cordx][cordy] == '.') {
+            if (swapValues) {
+              if (cordx == coordinate) {
+                this.gameState.getMaze()[cordx][cordy] = '#';
+              } else {
+                this.gameState.getMaze()[cordx][cordy] = '!';
+              }
+            } else {
+              if (cordy == coordinate) {
+                this.gameState.getMaze()[cordx][cordy] = '#';
+              } else {
+                this.gameState.getMaze()[cordx][cordy] = '!';
+              }
+            }
+          }
+        }
+      }
     }
+    //this.gameState.getMaze()[x][y] = generateWall();
+  }
 
-  private void updateMap(int type, int coordinate) {
-    if (type == 1) {
+  private char generateWall() {
+    Random rnd = new Random();
+    int ch = rnd.nextInt(100);
+    if (ch <= 10) {
+      return '#';
+    }
+    if (ch <= 20) {
+      return '+';
+    }
+    return '.';
+  }
+
+  private void updateMap(Movement movement, int coordinate) {
+    if (movement == Movement.Horizontal) {
       createNewWalls(this.gameState.getMaze().length, coordinate, false);
     } else {
       createNewWalls(this.gameState.getMaze()[0].length, coordinate, true);
     }
+  }
+
+  private enum Movement {
+    Horizontal,
+    Vertical
   }
 }

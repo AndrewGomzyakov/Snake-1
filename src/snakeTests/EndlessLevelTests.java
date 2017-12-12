@@ -39,10 +39,10 @@ public class EndlessLevelTests {
     u.setAccessible(true);
     Field d = LevelCreator.class.getDeclaredField("d");
     d.setAccessible(true);
-    Assert.assertEquals(width / 2 - 6, r.get(creator));
-    Assert.assertEquals(width / 2 - 6, l.get(creator));
-    Assert.assertEquals(height / 2 - 6, u.get(creator));
-    Assert.assertEquals(height / 2 - 6, d.get(creator));
+    Assert.assertEquals(width, r.get(creator));
+    Assert.assertEquals(0, l.get(creator));
+    Assert.assertEquals(height, u.get(creator));
+    Assert.assertEquals(0, d.get(creator));
   }
 
   @Test
@@ -57,7 +57,7 @@ public class EndlessLevelTests {
   @Test
   public void testUpdating() {
     char[] firstState = game.getMap()[game.getMap().length - 1];
-    for (int i = 0; i <= width / 2 - 6; i++) {
+    for (int i = 0; i < width; i++) {
       creator.updateLevel();
     }
     Assert.assertNotEquals(game.getMap()[game.getMap().length - 1], firstState);
