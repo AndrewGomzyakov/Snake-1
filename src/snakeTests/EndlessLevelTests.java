@@ -39,10 +39,10 @@ public class EndlessLevelTests {
     u.setAccessible(true);
     Field d = LevelCreator.class.getDeclaredField("d");
     d.setAccessible(true);
-    Assert.assertEquals(width, r.get(creator));
-    Assert.assertEquals(0, l.get(creator));
-    Assert.assertEquals(height, u.get(creator));
-    Assert.assertEquals(0, d.get(creator));
+    Assert.assertEquals(width / 2, r.get(creator));
+    Assert.assertEquals(width / 2, l.get(creator));
+    Assert.assertEquals(height / 2, u.get(creator));
+    Assert.assertEquals(height / 2, d.get(creator));
   }
 
   @Test

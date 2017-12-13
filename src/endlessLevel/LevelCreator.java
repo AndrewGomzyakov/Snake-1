@@ -1,5 +1,6 @@
 package endlessLevel;
 
+import direction.Dir;
 import gameCore.GameState;
 import java.util.ArrayList;
 import java.util.Random;
@@ -13,17 +14,22 @@ public class LevelCreator {
   private int l;
   private int u;
   private int d;
+  private int gameWidth;
+  private int gameHeight;
   private int[][] fig = {{0, 0, 1, 0, 1, 1, 2, 1},
       {2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 0, 2, 1, 2, 3, 2, 4, 2},
       {0, 0, 1, 0, 1, 1, 1, 2},
       {0, 0, 0, 1, 1, 0, 1, 1}};
+
   public LevelCreator(GameState gameState) {
     this.gameState = gameState;
-    magic = 9 / 2 + 3;
-    r = gameState.getMap().length - gameState.getHead(gameState.getSnake()).x;
-    l = gameState.getMap().length - r;
-    u = gameState.getMap()[0].length - gameState.getHead(gameState.getSnake()).y;
-    d = gameState.getMap()[0].length - u;
+    magic = 7;
+    r = gameState.getMap().length / 2;
+    l = r;
+    u = gameState.getMap()[0].length / 2;
+    d = u;
+    gameWidth = gameState.getMap().length;
+    gameHeight = gameState.getMap()[0].length;
   }
 
   private ArrayList<int[]> a = new ArrayList<int[]>();
@@ -36,8 +42,8 @@ public class LevelCreator {
           d++;
         } else {
           updateMap(Movement.Vertical, (this.gameState.getHead(this.gameState.getSnake()).y - magic
-              + this.gameState.getMap().length)
-              % this.gameState.getMap().length);
+              + gameHeight)
+              % gameHeight);
         }
         break;
       case Down:
@@ -46,7 +52,7 @@ public class LevelCreator {
           u++;
         } else {
           updateMap(Movement.Vertical, (this.gameState.getHead(this.gameState.getSnake()).y + magic)
-              % this.gameState.getMap().length);
+              % gameHeight);
         }
         break;
       case Left:
@@ -56,8 +62,8 @@ public class LevelCreator {
         } else {
           updateMap(Movement.Horizontal,
               (this.gameState.getHead(this.gameState.getSnake()).x - magic
-              + this.gameState.getMap()[0].length)
-              % this.gameState.getMap()[0].length);
+                  + gameWidth)
+                  % gameWidth);
         }
         break;
       case Right:
@@ -66,9 +72,8 @@ public class LevelCreator {
           l++;
         } else {
           updateMap(Movement.Horizontal,
-              (this.gameState.getHead(this.gameState.getSnake()).x + magic
-                  + this.gameState.getMap()[0].length)
-              % this.gameState.getMap()[0].length);
+              (this.gameState.getHead(this.gameState.getSnake()).x + magic)
+                  % gameWidth);
         }
         break;
     }
@@ -99,6 +104,7 @@ public class LevelCreator {
     char[][] map = this.gameState.getMap();
     int x;
     int y;
+    Dir snakeDir = gameState.getSnake().getDir().getDir();
     for (int i = 0; i < maxLength; i++) {
       if (swapValues) {
         x = coordinate;
@@ -115,20 +121,25 @@ public class LevelCreator {
       if (ch <= 2) {
         int num = rnd.nextInt(fig.length);
         for (int j = 0; j < fig[num].length / 2; j++) {
-          int cordx = (x + fig[num][j * 2 + 1]) % this.gameState.getMaze().length;
-          int cordy = (y + fig[num][j * 2]) % this.gameState.getMaze()[0].length;
+          int cordx = (x + fig[num][j * 2 + 1]) % gameWidth;
+          int cordy = (y + fig[num][j * 2]) % gameHeight;
           if (map[cordx][cordy] == '.') {
             if (swapValues) {
               if (cordx == coordinate) {
                 this.gameState.getMaze()[cordx][cordy] = '#';
-              } else {
+              } else if (snakeDir == Dir.Down) {
                 this.gameState.getMaze()[cordx][cordy] = '!';
+              } else {
+                this.gameState.getMaze()[cordx][cordy] = '#';
               }
+
             } else {
               if (cordy == coordinate) {
                 this.gameState.getMaze()[cordx][cordy] = '#';
-              } else {
+              } else if (snakeDir == Dir.Right) {
                 this.gameState.getMaze()[cordx][cordy] = '!';
+              } else {
+                this.gameState.getMaze()[cordx][cordy] = '#';
               }
             }
           }
@@ -152,9 +163,9 @@ public class LevelCreator {
 
   private void updateMap(Movement movement, int coordinate) {
     if (movement == Movement.Horizontal) {
-      createNewWalls(this.gameState.getMaze().length, coordinate, false);
+      createNewWalls(gameWidth, coordinate, false);
     } else {
-      createNewWalls(this.gameState.getMaze()[0].length, coordinate, true);
+      createNewWalls(gameHeight, coordinate, true);
     }
   }
 
