@@ -42,6 +42,8 @@ public class GameState {
   private List<IObject> objs = new LinkedList<IObject>();
   private int height;
   private int width;
+  @Getter
+  private boolean reverseKeys = true;
 
   public char[][] getMaze() {
     return this.maze;
