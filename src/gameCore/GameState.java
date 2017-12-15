@@ -6,6 +6,7 @@ import direction.Direction;
 import factory.FoodFactory;
 import factory.HedgehogFactory;
 import factory.IObjFactory;
+import factory.MushroomFactory;
 import factory.PillowFactory;
 import factory.TeleportFactory;
 import java.awt.Point;
@@ -16,6 +17,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import lombok.Getter;
+import lombok.Setter;
+import model.Effect;
 import model.IObject;
 import model.Snake;
 
@@ -30,6 +33,7 @@ public class GameState {
     Dic.put("Hedgehog", new HedgehogFactory());
     Dic.put("Teleport", new TeleportFactory());
     Dic.put("Pillow", new PillowFactory());
+    Dic.put("Mushroom", new MushroomFactory());
   }
 
   @Getter
@@ -43,7 +47,8 @@ public class GameState {
   private int height;
   private int width;
   @Getter
-  private boolean reverseKeys = true;
+  @Setter
+  private Effect effect;
 
   public char[][] getMaze() {
     return this.maze;
@@ -133,10 +138,10 @@ public class GameState {
         die(snakeClone.get(i));
         flag = true;
       }
+
       if (flag) {
         break;
       }
-
 
     }
     if (!snake.isMoving()) {
@@ -144,6 +149,12 @@ public class GameState {
     }
 
     Point next = collise(snake);
+    if (this.snake.getEffectTimer() > 0) {
+      this.effect = this.snake.getEffect();
+      this.snake.setEffectTimer(this.snake.getEffectTimer() - 1);
+    } else if (effect != null) {
+      effect = null;
+    }
     for (int i = 0; i < snakeClone.size(); i++) {
       if (snakeClone.get(i).getBody().contains(next)) {
         return die(snake);

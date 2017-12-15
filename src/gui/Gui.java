@@ -15,8 +15,6 @@ import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
-
-import endlessLevel.LevelCreator;
 import save.Saver;
 
 
@@ -27,7 +25,7 @@ public class Gui {
   private static Display display = new Display();
   private static Shell shell = new Shell(display);
   private static GameState gameState;
-  private static LevelCreator cr;
+  // private static LevelCreator cr;
   private static Font font = new Font(display, "Arial", 14, SWT.BOLD | SWT.ITALIC);
   private static boolean flag = false;
   private static Image hedgA = new Image(display, ".\\sprites\\hedgA.png");
@@ -38,6 +36,7 @@ public class Gui {
   private static Image tel2 = new Image(display, ".\\sprites\\port2.png");
   private static Image pil = new Image(display, ".\\sprites\\pil.png");
   private static Image apple = new Image(display, ".\\sprites\\apple.gif");
+  private static Image mushroom = new Image(display, ".\\sprites\\mush.png");
 
   private static void setFilters(FileDialog dialog) {
     String[] names = new String[FILTERS.length];
@@ -64,7 +63,7 @@ public class Gui {
 
   public static void runGame(Canvas canvas, String path, Runnable gameTick) {
     gameState = StateParser.makeGame(path);
-    cr = new LevelCreator(gameState);
+    //cr = new LevelCreator(gameState);
     display.timerExec(500, gameTick);
   }
 
@@ -76,7 +75,7 @@ public class Gui {
     shell.setLayout(new FillLayout());
     Runnable gameTick = new Runnable() {
       public void run() {
-    	cr.updateLevel();
+        //cr.updateLevel();
         if (!gameState.makeTick()) {
           flag = true;
           canvas.redraw();
@@ -158,6 +157,9 @@ public class Gui {
                 break;
               case ('p'):
                 drawSprite(e, tel2, (j + 4) * sqRez, (i + 4) * sqRez, sqRez);
+                break;
+              case ('&'):
+                drawSprite(e, mushroom, (j + 4) * sqRez, (i + 4) * sqRez, sqRez);
                 break;
             }
           }

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +22,12 @@ public class Snake {
   private boolean isMoving;
   @Setter
   private Point next;
+  @Getter
+  @Setter
+  private Effect effect;
+  @Getter
+  @Setter
+  private int effectTimer;
 
   public Snake(Point[] b, Dir dir) {
     isMoving = true;

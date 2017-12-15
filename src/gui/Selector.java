@@ -5,6 +5,7 @@ import direction.Direction;
 import gameCore.GameState;
 import gameCore.Tuple;
 import java.util.ArrayList;
+import model.Effect;
 import model.Snake;
 import org.eclipse.swt.SWT;
 
@@ -20,7 +21,7 @@ public class Selector {
   }
 
 
-  public Tuple<Snake, Direction> selctSnakeByKey(int keyCode, GameState game) {
+  public Tuple<Snake, Direction> selectSnakeByKey(int keyCode, GameState game) {
     ArrayList<Snake> snakeClone = game.getSnakeClone();
     Snake snake = null;
     Direction dir = null;
@@ -42,7 +43,7 @@ public class Selector {
     int down[] = {115, 103, 107, SWT.ARROW_DOWN};
     int right[] = {100, 104, 108, SWT.ARROW_RIGHT};
 
-    if (game.isReverseKeys()) {
+    if (game.getEffect() == Effect.InvertButtons) {
       int temp[] = up;
       up = down.clone();
       down = temp.clone();
