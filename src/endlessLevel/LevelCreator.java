@@ -20,6 +20,7 @@ public class LevelCreator {
       {2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 0, 2, 1, 2, 3, 2, 4, 2},
       {0, 0, 1, 0, 1, 1, 1, 2},
       {0, 0, 0, 1, 1, 0, 1, 1}};
+  private ArrayList<int[]> a = new ArrayList<int[]>();
 
   public LevelCreator(GameState gameState) {
     this.gameState = gameState;
@@ -31,8 +32,6 @@ public class LevelCreator {
     gameWidth = gameState.getMap().length;
     gameHeight = gameState.getMap()[0].length;
   }
-
-  private ArrayList<int[]> a = new ArrayList<int[]>();
 
   public void updateLevel() {
     switch (this.gameState.getSnake().getDir().getDir()) {

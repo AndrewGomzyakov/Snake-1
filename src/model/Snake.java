@@ -12,7 +12,7 @@ import lombok.Setter;
 
 public class Snake {
 
-  @Getter 
+  @Getter
   private LinkedList<Point> body = new LinkedList<>();
   @Getter
   private int buffer;
@@ -20,10 +20,10 @@ public class Snake {
   private Direction dir;
   @Getter
   private boolean isMoving;
-  @Setter 
+  @Setter
   private Point next;
-  @Getter 
-  @Setter 
+  @Getter
+  @Setter
   private Effect effect;
   @Getter
   @Setter
@@ -45,8 +45,8 @@ public class Snake {
   }
 
   public boolean turn(Direction newDirection) {
-    
-	  if (dir.isOpposit(newDirection)) {
+
+    if (dir.isOpposit(newDirection)) {
       return false;
     }
     dir = newDirection;
@@ -86,21 +86,18 @@ public class Snake {
     buffer += val;
   }
 
-  public void setNext(Point newNext) {
-	    next = newNext;
-	  }
   public List<Point> getBody() {
-	    return body;
-	  }
-  
+    return body;
+  }
+
   public Direction getDir() {
-	    return dir;
-	  }
+    return dir;
+  }
 
   public boolean isMoving() {
-	    return isMoving;
-	  }
-  
+    return isMoving;
+  }
+
   public Point getNext() {
     if (next == null) {
       Point d = dir.getPointDir();
@@ -109,17 +106,21 @@ public class Snake {
     return next;
   }
 
+  public void setNext(Point newNext) {
+    next = newNext;
+  }
+
   public Point getHead() {
     return body.getLast();
   }
 
-public Effect getEffect() {
-	return this.effect;
-}
+  public Effect getEffect() {
+    return this.effect;
+  }
 
-public int getEffectTimer() {
-	return this.effectTimer;
-}
+  public int getEffectTimer() {
+    return this.effectTimer;
+  }
 }
 
 	

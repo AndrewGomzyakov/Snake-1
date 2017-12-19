@@ -50,10 +50,6 @@ public class GameState {
   @Setter
   private Effect effect;
 
-  public char[][] getMaze() {
-    return this.maze;
-  }
-
   public GameState(char[][] maze, Point[] snakePos, Direction snakeDir,
       ArrayList<Tuple<String, Integer[]>> objsCreators) {
     isAlive = true;
@@ -68,6 +64,9 @@ public class GameState {
     }
   }
 
+  public char[][] getMaze() {
+    return this.maze;
+  }
 
   public char[][] getMap() {
     for (int i = 0; i < map.length; i++) {
@@ -155,16 +154,13 @@ public class GameState {
     } else if (effect != null) {
       effect = null;
     }
-    for (int i = 0; i < snakeClone.size(); i++) {
-      if (snakeClone.get(i).getBody().contains(next)) {
+    for (Snake aSnakeClone : snakeClone) {
+      if (aSnakeClone.getBody().contains(next)) {
         return die(snake);
       }
     }
-    if (maze[next.y][next.x] == '+' || (maze[next.y][next.x] == '.' && snake.makeStep())) {
-      return true;
-    } else {
-      return die(snake);
-    }
+    return (maze[next.y][next.x] == '+' || (maze[next.y][next.x] == '.' && snake.makeStep()))
+        || die(snake);
   }
 
   private Point collise(Snake snake) {
@@ -246,19 +242,23 @@ public class GameState {
 
 
   public boolean turnSnake(Snake snake, Dir dir) {
-	  if (snake.getEffect() == Effect.ReduceField) {
-		  Dir dirs[] = {Dir.Left, Dir.Up, Dir.Right, Dir.Down};
-	    	Dir newDir = null;
-	    	int curDir = 1;
-	    	for (int i = 0 ; i  < dirs.length; i++)
-	    		if (dirs[i] == snake.getDir().getDir())
-	    			curDir = i;
-	    	for (int i = 0; i < dirs.length; i++)
-	    		if (dirs[i] == dir)
-	    			newDir = dirs[(4 + curDir + i - 1) % 4];
-	    	return snake.turn(new Direction(newDir));
-	  }
-	  return snake.turn(new Direction(dir));
+    if (snake.getEffect() == Effect.TurnField) {
+      Dir dirs[] = {Dir.Left, Dir.Up, Dir.Right, Dir.Down};
+      Dir newDir = null;
+      int curDir = 1;
+      for (int i = 0; i < dirs.length; i++) {
+        if (dirs[i] == snake.getDir().getDir()) {
+          curDir = i;
+        }
+      }
+      for (int i = 0; i < dirs.length; i++) {
+        if (dirs[i] == dir) {
+          newDir = dirs[(4 + curDir + i - 1) % 4];
+        }
+      }
+      return snake.turn(new Direction(newDir));
+    }
+    return snake.turn(new Direction(dir));
   }
 
   public boolean turnSnake(Snake snake, Point dir) {

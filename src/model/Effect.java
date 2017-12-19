@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Random;
 
 public enum Effect {
-  ReduceField,  //наверное, должен обрабатываться где то в отрисовке
-  InvertButtons, 
+  TurnField,  //наверное, должен обрабатываться где то в отрисовке
+  InvertButtons,
   SmallField; //обрабатывается в селекторе
 
   private static final List<Effect> VALUES =
