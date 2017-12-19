@@ -246,7 +246,19 @@ public class GameState {
 
 
   public boolean turnSnake(Snake snake, Dir dir) {
-    return snake.turn(new Direction(dir));
+	  if (snake.getEffect() == Effect.ReduceField) {
+		  Dir dirs[] = {Dir.Left, Dir.Up, Dir.Right, Dir.Down};
+	    	Dir newDir = null;
+	    	int curDir = 1;
+	    	for (int i = 0 ; i  < dirs.length; i++)
+	    		if (dirs[i] == snake.getDir().getDir())
+	    			curDir = i;
+	    	for (int i = 0; i < dirs.length; i++)
+	    		if (dirs[i] == dir)
+	    			newDir = dirs[(4 + curDir + i - 1) % 4];
+	    	return snake.turn(new Direction(newDir));
+	  }
+	  return snake.turn(new Direction(dir));
   }
 
   public boolean turnSnake(Snake snake, Point dir) {

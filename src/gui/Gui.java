@@ -2,6 +2,8 @@ package gui;
 
 import gameCore.GameState;
 import gameCore.StateParser;
+import model.Effect;
+
 import java.awt.Point;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
@@ -70,6 +72,9 @@ public class Gui {
   public static void main(String[] arguments) {
 
     Canvas canvas = new Canvas(shell, SWT.BORDER);
+    FildRotateGUI newGUI = new FildRotateGUI(display, shell, canvas);
+    normalGUI nGUI = new normalGUI(display, shell, canvas);
+    SmallGUI sGUI = new SmallGUI(display, shell, canvas);
     shell.setText("Snake Game");
     shell.setSize(400, 400);
     shell.setLayout(new FillLayout());
@@ -84,92 +89,19 @@ public class Gui {
           canvas.redraw();
           display.timerExec(500, this);
         }
-      }
+      } 
     };
-
+    
     canvas.addPaintListener(new PaintListener() {
       public void paintControl(PaintEvent e) {
-        e.gc.setBackground(shell.getDisplay().getSystemColor(SWT.COLOR_YELLOW));
-        e.gc.setFont(font);
-
-        e.gc.fillRectangle(canvas.getBounds());
-        char a[][] = gameState.getMap();
-        int sqWidth = a[0].length;
-        int sqHeight = a.length;
-        sqHeight = (canvas.getBounds().height - 20) / 9;
-        sqWidth = canvas.getBounds().width / 9;
-        int sqRez = Math.min(sqWidth, sqHeight);
-        Point snakeHead = new Point();
-        snakeHead.x = gameState.getHead(gameState.getSnake()).y;
-        snakeHead.y = gameState.getHead(gameState.getSnake()).x;
-        for (int i = -4; i <= 4; i++) {
-          for (int j = -4; j <= 4; j++) {
-            int x = snakeHead.x + i;
-            int y = snakeHead.y + j;
-            if (x < 0) {
-              x += a.length;
-            }
-            if (x >= a.length) {
-              x -= a.length;
-            }
-            if (y < 0) {
-              y += a[0].length;
-            }
-            if (y >= a[0].length) {
-              y -= a[0].length;
-            }
-            switch (a[x][y]) {
-              case ('A'):
-                drawSprite(e, hedgA, (j + 4) * sqRez, (i + 4) * sqRez, sqRez);
-                break;
-              case ('W'):
-                drawSprite(e, hedgW, (j + 4) * sqRez, (i + 4) * sqRez, sqRez);
-                break;
-              case ('S'):
-                drawSprite(e, hedgS, (j + 4) * sqRez, (i + 4) * sqRez, sqRez);
-                break;
-              case ('D'):
-                drawSprite(e, hedgD, (j + 4) * sqRez, (i + 4) * sqRez, sqRez);
-                break;
-              case ('@'):
-                drawColoredSq(e, (j + 4) * sqRez, (i + 4) * sqRez, sqRez - 1, SWT.COLOR_GREEN);
-                break;
-              case ('?'):
-                drawColoredSq(e, (j + 4) * sqRez, (i + 4) * sqRez, sqRez - 1, SWT.COLOR_DARK_GREEN);
-                break;
-              case ('#'):
-                drawColoredSq(e, (j + 4) * sqRez, (i + 4) * sqRez, sqRez - 1, SWT.COLOR_BLACK);
-                break;
-              case ('+'):
-                drawColoredSq(e, (j + 4) * sqRez, (i + 4) * sqRez, sqRez - 1, SWT.COLOR_WHITE);
-                break;
-              case ('%'):
-                drawSprite(e, pil, (j + 4) * sqRez, (i + 4) * sqRez, sqRez);
-                break;
-              case ('.'):
-                drawColoredSq(e, (j + 4) * sqRez, (i + 4) * sqRez, sqRez - 1, SWT.COLOR_BLUE);
-                break;
-              case ('*'):
-                drawSprite(e, apple, (j + 4) * sqRez, (i + 4) * sqRez, sqRez);
-                break;
-              case ('P'):
-                drawSprite(e, tel1, (j + 4) * sqRez, (i + 4) * sqRez, sqRez);
-                break;
-              case ('p'):
-                drawSprite(e, tel2, (j + 4) * sqRez, (i + 4) * sqRez, sqRez);
-                break;
-              case ('&'):
-                drawSprite(e, mushroom, (j + 4) * sqRez, (i + 4) * sqRez, sqRez);
-                break;
-            }
-          }
-        }
-
-        //e.gc.drawText("����� ������:  " + gameState.getLenght(), 10, sqRez * (a.length)); TODO
-        if (flag) {
-          e.gc.setBackground(shell.getDisplay().getSystemColor(SWT.COLOR_DARK_MAGENTA));
-          e.gc.drawText("Game over", 200, 200);
-        }
+    	  if (gameState.getSnake().getEffect() == Effect.SmallField)
+    		  sGUI.drawField(e, flag, gameState);
+    	  else { if (gameState.getSnake().getEffect() == Effect.ReduceField) {
+    		  newGUI.drawField(e, flag, gameState);
+    	  }else {
+    		  nGUI.drawField(e, flag, gameState);
+    	  }
+    	  }
       }
     });
 
